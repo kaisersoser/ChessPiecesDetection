@@ -85,33 +85,14 @@ namespace ChessPiecesDetection
             if (_LocalPersistentObject.bitmapProcessingImage == null)
                 return;
 
+            _LocalPersistentObject.bitmapProcessingImage = _LocalPersistentObject.bitmapProcessingImage.Resize(1024, 1024, WriteableBitmapExtensions.Interpolation.Bilinear);
             Bitmap image = AForge.Imaging.Image.Clone((Bitmap)_LocalPersistentObject.bitmapProcessingImage, System.Drawing.Imaging.PixelFormat.Format8bppIndexed);
-
-            /*
-            DifferenceEdgeDetector deFilter = new DifferenceEdgeDetector();
-            deFilter.ApplyInPlace(image);
-            */
-
-            /*
-            Dilatation diFilter = new Dilatation();
-            diFilter.ApplyInPlace(image);            
-            */
-
             
-            Threshold biFilter = new Threshold(40);
-            biFilter.ApplyInPlace(image);
-            
-
-            /*
-            ConnectedComponentsLabeling ccFilter = new ConnectedComponentsLabeling();
-            image = ccFilter.Apply(image);
-            */
-
             BlobCounter blobCounter = new BlobCounter();
 
-            blobCounter.FilterBlobs = false;
-            blobCounter.MinHeight = 5;
-            blobCounter.MinWidth = 5;
+            blobCounter.FilterBlobs = true;
+            blobCounter.MinHeight = 50;
+            blobCounter.MinWidth = 50;
 
             blobCounter.ProcessImage(image);
             Blob[] blobs = blobCounter.GetObjectsInformation();
@@ -135,26 +116,18 @@ namespace ChessPiecesDetection
                         // x, y, width, height values.
                         List<AForge.Point> Points = new List<AForge.Point>();
 
-                        _LocalPersistentObject.bitmapProcessingImage.DrawRectangle(cornerPoints[0].X,
+                        _LocalPersistentObject.bitmapProcessingImage.Crop(
+                                          cornerPoints[0].X,
                                           cornerPoints[0].Y,
                                           cornerPoints[2].X,
-                                          cornerPoints[2].Y,
-                                          Windows.UI.Colors.Red);
-                        
-                        foreach (var point in cornerPoints)
-                        {
-                            Points.Add(new AForge.Point(point.X, point.Y));
-                        }
-                        
-                        //GraphicsUnit g = Graphics.FromImage(image);
-                        //g.DrawPolygon(new Pen(Color.Red, 5.0f), Points.ToArray());
-
-                        //image.Save("result.png");                   
+                                          cornerPoints[2].Y);           
                     }
                 }
             }
 
-            _LocalPersistentObject.bitmapProcessingImage = (WriteableBitmap)image;
+            _LocalPersistentObject.bitmapProcessingImage = _LocalPersistentObject.bitmapProcessingImage.Resize
+                (640, 640, WriteableBitmapExtensions.Interpolation.Bilinear);
+            //_LocalPersistentObject.bitmapProcessingImage = (WriteableBitmap)image;
             MainImageFrame.Navigate(typeof(ImageLoaded), _LocalPersistentObject);
         }
 
