@@ -1,0 +1,165 @@
+﻿<Page
+    x:Class="ChessPiecesDetection.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:ChessPiecesDetection"
+    xmlns:data="using:ChessPiecesDetection"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <Style TargetType="Button" x:Key="MainButtonStyle">
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="Margin" Value="10,0,0,0" />
+            <Setter Property="Width" Value="200" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+        </Style>
+        <Style TargetType="Image" x:Key="MainImageStyle">
+            <Setter Property="Height" Value="500" />
+            <Setter Property="Width" Value="500" />
+            <Setter Property="Stretch" Value="Uniform" />
+        </Style>
+        <Style TargetType="Image" x:Key="PieceImageStyle">
+            <Setter Property="Height" Value="64" />
+            <Setter Property="Width" Value="64" />
+            <Setter Property="Stretch" Value="Uniform" />
+        </Style>
+        <Style TargetType="TextBlock" x:Key="MainTextBlockStyle">
+            <Setter Property="FontFamily" Value="{ThemeResource PivotTitleFontFamily}" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontSize" Value="30" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="10,0,0,0" />
+        </Style>
+        <Style TargetType="StackPanel" x:Key="BoardPieceViewStackPanelStyle">
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="100" />
+            <Setter Property="Margin" Value="5,5,5,5" />
+            <Setter Property="Orientation" Value="Vertical" />
+        </Style>
+        <Style TargetType="TextBlock" x:Key="BoardPieceCaptionStyle">
+            <Setter Property="Style" Value="{StaticResource CaptionTextBlockStyle}" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="8" />
+            <Setter Property="TextWrapping" Value="NoWrap" />
+        </Style>
+        <Style TargetType="ComboBox" x:Key="PieceTypeComboBoxStyle">
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="DimGray" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="6" />
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="Height" Value="20" />
+        </Style>
+        <DataTemplate x:DataType="data:BoardPosition" x:Key="BoardPositionDataTemplate">
+            <StackPanel Style="{StaticResource BoardPieceViewStackPanelStyle}">
+                <TextBlock Text="{x:Bind PositionID}" Style="{StaticResource BoardPieceCaptionStyle}"/>
+                <Image Source="{x:Bind PositionImage}" Style="{StaticResource PieceImageStyle}"/>
+                <ComboBox Name="PieceType" 
+                          SelectionChanged="PieceType_SelectionChanged" 
+                          Style="{StaticResource PieceTypeComboBoxStyle}"
+                          SelectedIndex="0">
+                    <ComboBoxItem Content="Empty" />
+                    <ComboBoxItem Content="White Pawn" />
+                    <ComboBoxItem Content="White Knight" />
+                    <ComboBoxItem Content="White Bishop" />
+                    <ComboBoxItem Content="White Rook" />
+                    <ComboBoxItem Content="White Queen" />
+                    <ComboBoxItem Content="White King" />
+                    <ComboBoxItem Content="Black Pawn" />
+                    <ComboBoxItem Content="Black Knight" />
+                    <ComboBoxItem Content="Black Bishop" />
+                    <ComboBoxItem Content="Black Rook" />
+                    <ComboBoxItem Content="Black Queen" />
+                    <ComboBoxItem Content="Black King" />
+                </ComboBox>
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" 
+                    Background="Bisque"
+                    Orientation="Horizontal"    
+                    Margin="0,0,0,0"
+                    Height="100"                    
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Stretch">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock  Grid.Column="0"
+                            Text="Select File"
+                            Style="{StaticResource MainTextBlockStyle}"/>
+                <Button     Name="ImageLoadButton"
+                            Content="Select Image"
+                            Click="ImageLoadButton_Click"
+                            Grid.Column="1"                     
+                            Style="{StaticResource MainButtonStyle}"/>
+            </Grid>
+        </StackPanel>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="700" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" >
+                <Image Name="ImageView"                   
+                   Width="512"
+                   Height="512"
+                   VerticalAlignment="Top"                  
+                   Margin="0,50,0,0"/>
+                <Button     Name="DetectBoard"
+                            Content="Process Board"
+                            Click="DetectBoard_Click" 
+                            Grid.Column="0"
+                            Margin="0,10"
+                            Style="{StaticResource MainButtonStyle}"/>
+                <Button     Name="SaveBoard"
+                            Content="Save Board Data"
+                            Click="SaveBoard_Click"
+                            Grid.Column="0"
+                            Margin="0,10"
+                            Style="{StaticResource MainButtonStyle}"/>
+            </StackPanel>
+
+            <Grid Grid.Column="1" Name="ProcessingToolsGrid" Visibility="Visible">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="1" Name="DonutsSelectionView">
+                    <ScrollViewer BorderBrush="Gray"
+                              BorderThickness="1"
+                              Background="White"
+                              Width="950"
+                              Height="850"
+                              VerticalScrollBarVisibility="Auto">
+
+                        <!-- Using GridView-->
+                        <GridView ItemsSource="{x:Bind BoardPositions}"
+                                      IsItemClickEnabled="False" 
+                                      ItemTemplate="{StaticResource BoardPositionDataTemplate}" />
+
+                    </ScrollViewer>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
