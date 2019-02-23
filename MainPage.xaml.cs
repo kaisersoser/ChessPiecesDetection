@@ -1,13 +1,10 @@
-﻿using AForge;
-using AForge.Imaging;
-using AForge.Math.Geometry;
-using AForge.Imaging.Filters;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using System.Linq;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -16,6 +13,7 @@ using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
+using DataAccessLibrary;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -26,58 +24,23 @@ namespace ChessPiecesDetection
     /// </summary>
     public sealed partial class MainPage : Page
     {
-
-        WriteableBitmap originalLoadedImage;
-        WriteableBitmap bmp;
-        public ObservableCollection<BoardPosition> BoardPositions { get; set; }
-
-        private const String piecesDatabaseFile = "json\\pieces.json";
-
+        private PersistentObjects _PersistentObjects;
         public MainPage()
         {
             this.InitializeComponent();
-            bmp = null;
-            BoardPositions = new ObservableCollection<BoardPosition>();
+            _PersistentObjects = new PersistentObjects();
         }
 
-
-        private async void ImageLoadButton_Click(object sender, RoutedEventArgs e)
+        private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {
-            FileOpenPicker openPicker = new FileOpenPicker();
-            openPicker.ViewMode = PickerViewMode.Thumbnail;
-            openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-            openPicker.FileTypeFilter.Add(".jpg");
-            openPicker.FileTypeFilter.Add(".png");
-            openPicker.FileTypeFilter.Add(".gif");
-            openPicker.FileTypeFilter.Add(".bmp");
-
-            StorageFile file = await openPicker.PickSingleFileAsync();
-
-            if (file != null)
-            {
-                var stream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
-
-                Windows.Graphics.Imaging.BitmapDecoder decoder = await Windows.Graphics.Imaging.BitmapDecoder.CreateAsync(stream);
-                bmp = BitmapFactory.New((int)decoder.PixelWidth, (int)decoder.PixelHeight);
-                bmp.SetSource(stream);
-
-                ImageView.Source = bmp;
-                originalLoadedImage = bmp;
-
-            }
-
-            ProcessingToolsGrid.Visibility = Visibility.Visible;
+            MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
         }
 
-        private void ResetImage_Click(object sender, RoutedEventArgs e)
-        {
-            if (bmp == null)
-                return;
 
-            ImageView.Source = originalLoadedImage;
+        
 
-        }
 
+        /*
         private void ProcessBoard1_Click(object sender, RoutedEventArgs e)
         {
             if (bmp == null)
@@ -151,10 +114,11 @@ namespace ChessPiecesDetection
                     }
                 }
             }           
-            */
+            
             ImageView.Source = (WriteableBitmap)image;
-        }
+        } */
 
+        /*
         private void HoughTransformProcessBoard_Click(object sender, RoutedEventArgs e)
         {
             if (bmp == null)
@@ -270,10 +234,10 @@ namespace ChessPiecesDetection
                     }
                 }
             }
-            */
+            
             ImageView.Source = (WriteableBitmap)bmp;
-        }
-
+        }*/
+        /*
         private void DetectBoard_Click(object sender, RoutedEventArgs e)
         {
             if (bmp == null)
@@ -326,8 +290,9 @@ namespace ChessPiecesDetection
             ProcessBoard(bmp);
 
             ImageView.Source = (WriteableBitmap)bmp;
-        }
+        }*/
 
+        /*
         private async void ProcessBoard(WriteableBitmap _bmp)
         {
             String[] verticalPos = { "a", "b", "c", "d", "e", "f", "g", "h" };
@@ -361,13 +326,15 @@ namespace ChessPiecesDetection
                     modifiedBitmap = modifiedBitmap.Gray();
                     bPos.PositionImageByte = await EncodeJpeg(modifiedBitmap);
                     bPos.PositionImage = modifiedBitmap;
+                    bPos.PieceName = "Empty";
                     BoardPositions.Add(bPos);
 
 
                 }
             }
-        }
+        } */
 
+        /*
         private void PieceType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (sender != null)
@@ -383,12 +350,14 @@ namespace ChessPiecesDetection
                 {
                     pieceIDPos = Array.IndexOf(bPos.PiecesNames, strPieceName);
                     bPos.PieceID = (int)Enum.GetValues(typeof(BoardPosition.Pieces)).GetValue(pieceIDPos);
+                    bPos.PieceName = strPieceName;
                 }
 
             }
 
-        }
+        } */
 
+        /*
         private async Task<byte[]> EncodeJpeg(WriteableBitmap bmp)
         {
             SoftwareBitmap soft = SoftwareBitmap.CreateCopyFromBuffer(bmp.PixelBuffer, BitmapPixelFormat.Bgra8, bmp.PixelWidth, bmp.PixelHeight);
@@ -410,16 +379,39 @@ namespace ChessPiecesDetection
             }
 
             return array;
-        }
+        }*/
 
+        /*
         private void SaveBoard_Click(object sender, RoutedEventArgs e)
         {
+            // Return if no image loaded
+            if (bmp == null)
+                return;
 
-        }
+            // Return if no image processed
+            if (BoardPositions.Count <= 0)
+                return;
 
-        private void LoadPiecesDataBase()
+            List<BoardPosition> _boardPositions = BoardPositions.ToList<BoardPosition>();
+
+            foreach (BoardPosition bp in _boardPositions)
+            {
+                DataAccess.AddData(bp.PositionID, bp.PositionImageByte, bp.PieceID, bp.PieceName);
+            }
+
+        }*/
+
+
+        private void MenuListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (LoadFile.IsSelected)
+            {
+                VisibleFrame.Navigate(typeof(PrepareImage), _PersistentObjects);
+            }
+            else if (ProcessItem.IsSelected)
+            {
+                VisibleFrame.Navigate(typeof(ProcessFile), _PersistentObjects);
+            }
         }
     }
 }

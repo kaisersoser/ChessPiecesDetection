@@ -4,10 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:local="using:ChessPiecesDetection"
-    xmlns:data="using:ChessPiecesDetection"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
+    
     <Page.Resources>
         <Style TargetType="Button" x:Key="MainButtonStyle">
             <Setter Property="Background" Value="Black" />
@@ -55,18 +53,19 @@
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="FontSize" Value="6" />
+            <Setter Property="FontSize" Value="7" />
             <Setter Property="Margin" Value="0,0,0,0" />
             <Setter Property="Height" Value="20" />
+            <Setter Property="SelectedIndex" Value="0" />
         </Style>
-        <DataTemplate x:DataType="data:BoardPosition" x:Key="BoardPositionDataTemplate">
+        <!--<DataTemplate x:DataType="data:BoardPosition" x:Key="BoardPositionDataTemplate">
             <StackPanel Style="{StaticResource BoardPieceViewStackPanelStyle}">
                 <TextBlock Text="{x:Bind PositionID}" Style="{StaticResource BoardPieceCaptionStyle}"/>
                 <Image Source="{x:Bind PositionImage}" Style="{StaticResource PieceImageStyle}"/>
                 <ComboBox Name="PieceType" 
                           SelectionChanged="PieceType_SelectionChanged" 
                           Style="{StaticResource PieceTypeComboBoxStyle}"
-                          SelectedIndex="0">
+                          SelectedItem="{x:Bind PieceName}">
                     <ComboBoxItem Content="Empty" />
                     <ComboBoxItem Content="White Pawn" />
                     <ComboBoxItem Content="White Knight" />
@@ -82,37 +81,88 @@
                     <ComboBoxItem Content="Black King" />
                 </ComboBox>
             </StackPanel>
-        </DataTemplate>
+        </DataTemplate>-->
     </Page.Resources>
 
-    <Grid>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="100" />
-            <RowDefinition Height="5" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" 
-                    Background="Bisque"
-                    Orientation="Horizontal"    
-                    Margin="0,0,0,0"
-                    Height="100"                    
-                    VerticalAlignment="Stretch" 
-                    HorizontalAlignment="Stretch">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150" />
-                    <ColumnDefinition Width="2*" />
-                </Grid.ColumnDefinitions>
-                <TextBlock  Grid.Column="0"
-                            Text="Select File"
-                            Style="{StaticResource MainTextBlockStyle}"/>
-                <Button     Name="ImageLoadButton"
-                            Content="Select Image"
-                            Click="ImageLoadButton_Click"
-                            Grid.Column="1"                     
-                            Style="{StaticResource MainButtonStyle}"/>
-            </Grid>
-        </StackPanel>
+        <RelativePanel Name="MainMenu" Grid.Row="0">
+            <Button Name="HamburgerButton"
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="40"
+                    Content="&#xE700;"
+                    Click="HamburgerButton_Click"
+                    RelativePanel.AlignLeftWithPanel="True"/>
+            <TextBlock Name="PageTitleTextBlock"
+                       Margin="20,20,0,0"
+                       Text="Load Chess Board"
+                       VerticalAlignment="Center"
+                       FontFamily="100"
+                       FontWeight="Bold"
+                       RelativePanel.RightOf="HamburgerButton" />
+        </RelativePanel>
+        <SplitView Name="MySplitView"
+                   Grid.Row="1"
+                   DisplayMode="CompactOverlay"
+                   OpenPaneLength="350"
+                   CompactPaneLength="60"
+                   HorizontalAlignment="Left">
+            <SplitView.Pane>
+                <ListBox Name="MenuListBox"
+                         SelectionMode="Single"
+                         Background="DarkGoldenrod"
+                         Opacity="0.8"
+                         SelectionChanged="MenuListBox_SelectionChanged">
+                    <ListBoxItem Name="LoadFile">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0,20,0,0"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       FontSize="40"
+                                       Text="&#59621;"/>
+                            <TextBlock Margin="20,20,0,0" 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" 
+                                       FontSize="36"
+                                   Text="Load File" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Name="ProcessItem">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock 
+                                   Margin="0,20,0,0"
+                                   FontFamily="Segoe MDL2 Assets"
+                                   FontSize="40"
+                                   Text="&#59274;"/>
+                            <TextBlock Margin="20,20,0,0" FontSize="36"
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" 
+                                       Text="Process Image" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Name="AddBoard">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock 
+                                   Margin="0,20,0,0"
+                                   FontFamily="Segoe MDL2 Assets"
+                                   FontSize="40"
+                                   Text="&#59214;"/>
+                            <TextBlock Margin="20,20,0,0" FontSize="36"
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" 
+                                       Text="Add Board" />
+                        </StackPanel>
+                    </ListBoxItem>
+                </ListBox>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Frame Name="VisibleFrame"/>
+            </SplitView.Content>
+        </SplitView>
+        <!--
+        
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="700" />
@@ -152,7 +202,7 @@
                               Height="850"
                               VerticalScrollBarVisibility="Auto">
 
-                        <!-- Using GridView-->
+
                         <GridView ItemsSource="{x:Bind BoardPositions}"
                                       IsItemClickEnabled="False" 
                                       ItemTemplate="{StaticResource BoardPositionDataTemplate}" />
@@ -160,6 +210,6 @@
                     </ScrollViewer>
                 </StackPanel>
             </Grid>
-        </Grid>
-    </Grid>
+        </Grid> -->
+    </Grid> 
 </Page>
