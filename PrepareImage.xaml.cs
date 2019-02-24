@@ -13,6 +13,7 @@ using AForge.Math.Geometry;
 using AForge.Imaging.Filters;
 using System.Collections.Generic;
 using System.Drawing;
+using Windows.UI.Xaml.Media.Animation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -28,9 +29,6 @@ namespace ChessPiecesDetection
         public PrepareImage()
         {
             this.InitializeComponent();
-            _LocalPersistentObject = new PersistentObjects();
-            _LocalPersistentObject.BoardPositions = new ObservableCollection<BoardPosition>();
-            _LocalPersistentObject.isCroppingImage = false;
         }
 
         /// <summary>
@@ -42,6 +40,11 @@ namespace ChessPiecesDetection
             base.OnNavigatedTo(e);
             _LocalPersistentObject = e.Parameter as PersistentObjects;
 
+            if(_LocalPersistentObject!=null)
+                if (_LocalPersistentObject.originalLoadedImage != null)
+                {
+                    MainImageFrame.Navigate(typeof(ImageLoaded), _LocalPersistentObject);
+                }
         }
 
         /// <summary>
@@ -85,8 +88,10 @@ namespace ChessPiecesDetection
             if (_LocalPersistentObject.bitmapProcessingImage == null)
                 return;
 
-            _LocalPersistentObject.bitmapProcessingImage = _LocalPersistentObject.bitmapProcessingImage.Resize(1024, 1024, WriteableBitmapExtensions.Interpolation.Bilinear);
-            Bitmap image = AForge.Imaging.Image.Clone((Bitmap)_LocalPersistentObject.bitmapProcessingImage, System.Drawing.Imaging.PixelFormat.Format8bppIndexed);
+            WriteableBitmap bmp = _LocalPersistentObject.bitmapProcessingImage as WriteableBitmap;
+
+            bmp = bmp.Resize(1024, 1024, WriteableBitmapExtensions.Interpolation.Bilinear);
+            Bitmap image = AForge.Imaging.Image.Clone((Bitmap)bmp, System.Drawing.Imaging.PixelFormat.Format8bppIndexed);
             
             BlobCounter blobCounter = new BlobCounter();
 
@@ -116,19 +121,18 @@ namespace ChessPiecesDetection
                         // x, y, width, height values.
                         List<AForge.Point> Points = new List<AForge.Point>();
 
-                        _LocalPersistentObject.bitmapProcessingImage.Crop(
-                                          cornerPoints[0].X,
-                                          cornerPoints[0].Y,
-                                          cornerPoints[2].X,
-                                          cornerPoints[2].Y);           
+                        bmp = bmp.Crop(cornerPoints[0].X,
+                                       cornerPoints[0].Y,
+                                       cornerPoints[2].X,
+                                       cornerPoints[2].Y);           
                     }
                 }
             }
 
-            _LocalPersistentObject.bitmapProcessingImage = _LocalPersistentObject.bitmapProcessingImage.Resize
-                (640, 640, WriteableBitmapExtensions.Interpolation.Bilinear);
-            //_LocalPersistentObject.bitmapProcessingImage = (WriteableBitmap)image;
-            MainImageFrame.Navigate(typeof(ImageLoaded), _LocalPersistentObject);
+            bmp = bmp.Resize(640, 640, WriteableBitmapExtensions.Interpolation.Bilinear);
+            _LocalPersistentObject.bitmapProcessingImage = (WriteableBitmap)bmp;
+
+            MainImageFrame.Navigate(typeof(ImageLoaded), _LocalPersistentObject, new SuppressNavigationTransitionInfo());
         }
 
 
@@ -137,18 +141,23 @@ namespace ChessPiecesDetection
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        /// 
-        /*
+        ///      
         private void ResetImage_Click(object sender, RoutedEventArgs e)
         {
             if (_LocalPersistentObject.bitmapProcessingImage == null)
                 return;
 
-            ImageView.Source = _LocalPersistentObject.originalLoadedImage;
-        } */
+            _LocalPersistentObject.bitmapProcessingImage = _LocalPersistentObject.originalLoadedImage;
+            MainImageFrame.Navigate(typeof(ImageLoaded), _LocalPersistentObject, new SuppressNavigationTransitionInfo());
+        }
 
 
-
+        /// <summary>
+        /// Cropping tool for the Image
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// 
         private async void CropImageButton_Click(object sender, RoutedEventArgs e)
         {
             if (!_LocalPersistentObject.isCroppingImage)
@@ -167,7 +176,7 @@ namespace ChessPiecesDetection
                 ImageCropping imageCroppingRef = _LocalPersistentObject.ImageCropperInstance as ImageCropping;
 
                 _LocalPersistentObject.bitmapProcessingImage = await imageCroppingRef.GetCropppedImageBitmap();
-                MainImageFrame.Navigate(typeof(ImageLoaded), _LocalPersistentObject);
+                MainImageFrame.Navigate(typeof(ImageLoaded), _LocalPersistentObject, new SuppressNavigationTransitionInfo());
             }
         }
     }

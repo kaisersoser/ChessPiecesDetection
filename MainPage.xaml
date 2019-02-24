@@ -100,7 +100,7 @@
                        Margin="20,20,0,0"
                        Text="Load Chess Board"
                        VerticalAlignment="Center"
-                       FontFamily="100"
+                       FontFamily="50"
                        FontWeight="Bold"
                        RelativePanel.RightOf="HamburgerButton" />
         </RelativePanel>

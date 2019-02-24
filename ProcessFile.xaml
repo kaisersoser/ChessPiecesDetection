@@ -6,10 +6,100 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400"
+    d:DesignHeight="1000"
+    d:DesignWidth="1200"
     xmlns:data="using:ChessPiecesDetection">
-    <Grid>
+
+    <Page.Resources>
+        <Style TargetType="Button" x:Key="MainButtonStyle">
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Width" Value="50" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+            <Setter Property="FontSize" Value="35" />
+            <Setter Property="Foreground" Value="WhiteSmoke" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Margin" Value="10,10,10,10" />
+        </Style>
+        <Style TargetType="TextBlock" x:Key="MenuTextStyle">
+            <Setter Property="FontFamily" Value="{ThemeResource PhoneFontFamilySemiLight}" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="800" />
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MainImageFrame.Width" Value="800" />
+                        <Setter Target="MainImageFrame.Height" Value="800" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="0" />
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MainImageFrame.Width" Value="400" />
+                        <Setter Target="MainImageFrame.Height" Value="400" />
+                    </VisualState.Setters>
+                </VisualState>
+
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" 
+                    Background="Black"
+                    Orientation="Horizontal"    
+                    Margin="0,0,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Margin="10,10,10,10" Orientation="Vertical">
+                    <Button Grid.Column="0" HorizontalAlignment="Center"
+                            Style="{StaticResource MainButtonStyle}"
+                            Name="PredictButton"
+                            Content="&#59274;" 
+                            Click="ImageLoadButton_Click">
+                    </Button>
+                    <TextBlock Text="Predict Board" 
+                               HorizontalAlignment="Center"
+                               FontSize="11"
+                               Foreground="White"
+                               Style="{StaticResource MenuTextStyle}"/>
+                </StackPanel>
+                
+
+            </Grid>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="125" />
+            </Grid.ColumnDefinitions>
+            <Frame Grid.Column="1" 
+                   Name="MainImageFrame" 
+                   Margin="0,0"/>
+        </Grid>
 
     </Grid>
 </Page>

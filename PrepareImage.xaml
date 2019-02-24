@@ -17,7 +17,7 @@
             <Setter Property="Width" Value="50" />
             <Setter Property="Height" Value="50" />
             <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
-            <Setter Property="FontSize" Value="40" />
+            <Setter Property="FontSize" Value="35" />
             <Setter Property="Foreground" Value="WhiteSmoke" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
@@ -27,15 +27,6 @@
             <Setter Property="FontFamily" Value="{ThemeResource PhoneFontFamilySemiLight}" />
             <Setter Property="HorizontalAlignment" Value="Center" />
         </Style>
-        <DataTemplate x:Key="RectangleCorner">
-            <Rectangle Height="{StaticResource Size}" Width="{StaticResource Size}"
-                       Fill="{StaticResource ApplicationPageBackgroundThemeBrush}" 
-                       Stroke="{StaticResource ApplicationForegroundThemeBrush}" StrokeThickness="2">
-                <Rectangle.RenderTransform>
-                    <CompositeTransform TranslateX="{StaticResource TransformSize}" TranslateY="{StaticResource TransformSize}"/>
-                </Rectangle.RenderTransform>
-            </Rectangle>
-        </DataTemplate>
     </Page.Resources>
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -76,11 +67,11 @@
                     Margin="0,0,0,0">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="75" />
-                    <ColumnDefinition Width="75" />
-                    <ColumnDefinition Width="75" />
-                    <ColumnDefinition Width="75" />
-                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
                     <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Margin="10,10,10,10" Orientation="Vertical">
@@ -94,6 +85,20 @@
                                HorizontalAlignment="Center"
                                FontSize="11"
                                Foreground="White"
+                               Style="{StaticResource MenuTextStyle}"/>
+                </StackPanel>
+                <StackPanel  Grid.Column="1" Orientation="Vertical" Margin="10,10,10,10">
+                    <Button HorizontalAlignment="Center"
+                            Grid.Column="0"
+                            Style="{StaticResource MainButtonStyle}"
+                            Name="ResetImageButton"
+                            Foreground="Beige"
+                            Content="&#59180;" 
+                            Click="ResetImage_Click">
+                    </Button>
+                    <TextBlock Text="Reset Image" 
+                               FontSize="11" 
+                               Foreground="Beige"
                                Style="{StaticResource MenuTextStyle}"/>
                 </StackPanel>
                 <StackPanel  Grid.Column="2" Orientation="Vertical" Margin="10,10,10,10">

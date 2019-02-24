@@ -1,19 +1,6 @@
-﻿using System;
-using System.Drawing;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using System.Linq;
-using Windows.UI;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.Storage;
-using Windows.Storage.Pickers;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.Graphics.Imaging;
-using Windows.Storage.Streams;
-using DataAccessLibrary;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -29,6 +16,8 @@ namespace ChessPiecesDetection
         {
             this.InitializeComponent();
             _PersistentObjects = new PersistentObjects();
+            _PersistentObjects.isCroppingImage = false;
+            _PersistentObjects.BoardPositions = new System.Collections.ObjectModel.ObservableCollection<BoardPosition>();
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -36,8 +25,18 @@ namespace ChessPiecesDetection
             MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
         }
 
+        /// <summary>
+        /// Loaded automatically when this window is loaded
+        /// </summary>
+        /// <param name="e"></param>
+        /*
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            _PersistentObjects = e.Parameter as PersistentObjects;
 
-        
+        }
+        */
 
 
         /*
@@ -401,12 +400,12 @@ namespace ChessPiecesDetection
 
         }*/
 
-
+        
         private void MenuListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (LoadFile.IsSelected)
             {
-                VisibleFrame.Navigate(typeof(PrepareImage), _PersistentObjects);
+                VisibleFrame.Navigate(typeof(PrepareImage), _PersistentObjects);                
             }
             else if (ProcessItem.IsSelected)
             {
