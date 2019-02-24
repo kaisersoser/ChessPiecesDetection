@@ -5,10 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media.Imaging;
 
-
 namespace ChessPiecesDetection
 {
-    public class BoardPosition
+    public class PositionInstance
     {
         public enum Pieces
         {
@@ -27,7 +26,8 @@ namespace ChessPiecesDetection
             BKG = 12,      // Black King 215
         }
 
-        private readonly String[] piecesNames = { "Empty",
+        private readonly String[] piecesNames = {
+                                        "Empty",
                                         "White Pawn",
                                         "White Knight",
                                         "White Bishop",
@@ -49,6 +49,5 @@ namespace ChessPiecesDetection
         public string PieceName { get; set; }
 
         public string[] PiecesNames => piecesNames;
-
     }
 }

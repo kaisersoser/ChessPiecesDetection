@@ -17,7 +17,6 @@ namespace ChessPiecesDetection
             this.InitializeComponent();
             _PersistentObjects = new PersistentObjects();
             _PersistentObjects.isCroppingImage = false;
-            _PersistentObjects.BoardPositions = new System.Collections.ObjectModel.ObservableCollection<BoardPosition>();
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -291,47 +290,6 @@ namespace ChessPiecesDetection
             ImageView.Source = (WriteableBitmap)bmp;
         }*/
 
-        /*
-        private async void ProcessBoard(WriteableBitmap _bmp)
-        {
-            String[] verticalPos = { "a", "b", "c", "d", "e", "f", "g", "h" };
-
-            WriteableBitmap originalBitmap = _bmp;
-            WriteableBitmap modifiedBitmap = null;
-            BoardPosition bPos = null;
-            int posSize = 64;
-
-            BoardPositions.Clear();
-
-            int x0 = 0, y0 = 0;
-
-            for (int v = 7; v >= 0; v--)
-            {
-                for (int h = 1; h <= 8; h++)
-                {
-                    x0 = (h - 1) * posSize;
-                    y0 = (8 - (v + 1)) * posSize;
-                    //x1 = h * posSize;
-                    //y1 = (8-v) * posSize;
-
-                    bPos = new BoardPosition();
-                    bPos.PositionID = verticalPos[(h - 1)] + (v + 1);
-                    bPos.PositionImage = new WriteableBitmap(posSize, posSize);
-                    modifiedBitmap = originalBitmap.Crop(x0, y0, posSize, posSize);
-                    bPos.PositionImage = modifiedBitmap;
-                    bPos.PieceID = (int)BoardPosition.Pieces.EPY;
-
-                    modifiedBitmap = modifiedBitmap.Resize(64, 64, WriteableBitmapExtensions.Interpolation.Bilinear);
-                    modifiedBitmap = modifiedBitmap.Gray();
-                    bPos.PositionImageByte = await EncodeJpeg(modifiedBitmap);
-                    bPos.PositionImage = modifiedBitmap;
-                    bPos.PieceName = "Empty";
-                    BoardPositions.Add(bPos);
-
-
-                }
-            }
-        } */
 
         /*
         private void PieceType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -357,28 +315,7 @@ namespace ChessPiecesDetection
         } */
 
         /*
-        private async Task<byte[]> EncodeJpeg(WriteableBitmap bmp)
-        {
-            SoftwareBitmap soft = SoftwareBitmap.CreateCopyFromBuffer(bmp.PixelBuffer, BitmapPixelFormat.Bgra8, bmp.PixelWidth, bmp.PixelHeight);
-            byte[] array = null;
-
-            using (var ms = new InMemoryRandomAccessStream())
-            {
-                BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.GifEncoderId, ms);
-                encoder.SetSoftwareBitmap(soft);
-
-                try
-                {
-                    await encoder.FlushAsync();
-                }
-                catch { }
-
-                array = new byte[ms.Size];
-                await ms.ReadAsync(array.AsBuffer(), (uint)ms.Size, InputStreamOptions.None);
-            }
-
-            return array;
-        }*/
+        */
 
         /*
         private void SaveBoard_Click(object sender, RoutedEventArgs e)

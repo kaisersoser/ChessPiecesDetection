@@ -13,8 +13,7 @@ namespace ChessPiecesDetection
     class PersistentObjects
     {
         public WriteableBitmap originalLoadedImage { get; set; }
-        public WriteableBitmap bitmapProcessingImage { get; set; }
-        public ObservableCollection<BoardPosition> BoardPositions { get; set; }
+        public WriteableBitmap bitmapProcessingImage { get; set; }        
         public ImageCropping ImageCropperInstance { get; set; }
         public Boolean isCroppingImage { get; set; }
 
@@ -35,8 +34,6 @@ namespace ChessPiecesDetection
             bitmapProcessingImage = null;
             ImageCropperInstance = null;
 
-            if(BoardPositions!=null)
-                BoardPositions.Clear();
         }
 
     }

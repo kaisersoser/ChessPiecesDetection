@@ -119,7 +119,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BoardPosition.cs" />
     <Compile Include="ImageAutoCropped.xaml.cs">
       <DependentUpon>ImageAutoCropped.xaml</DependentUpon>
     </Compile>
@@ -129,6 +128,7 @@
     <Compile Include="ImageLoaded.xaml.cs">
       <DependentUpon>ImageLoaded.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PositionInstance.cs" />
     <Compile Include="PrepareImage.xaml.cs">
       <DependentUpon>PrepareImage.xaml</DependentUpon>
     </Compile>

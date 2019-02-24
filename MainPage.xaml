@@ -58,30 +58,6 @@
             <Setter Property="Height" Value="20" />
             <Setter Property="SelectedIndex" Value="0" />
         </Style>
-        <!--<DataTemplate x:DataType="data:BoardPosition" x:Key="BoardPositionDataTemplate">
-            <StackPanel Style="{StaticResource BoardPieceViewStackPanelStyle}">
-                <TextBlock Text="{x:Bind PositionID}" Style="{StaticResource BoardPieceCaptionStyle}"/>
-                <Image Source="{x:Bind PositionImage}" Style="{StaticResource PieceImageStyle}"/>
-                <ComboBox Name="PieceType" 
-                          SelectionChanged="PieceType_SelectionChanged" 
-                          Style="{StaticResource PieceTypeComboBoxStyle}"
-                          SelectedItem="{x:Bind PieceName}">
-                    <ComboBoxItem Content="Empty" />
-                    <ComboBoxItem Content="White Pawn" />
-                    <ComboBoxItem Content="White Knight" />
-                    <ComboBoxItem Content="White Bishop" />
-                    <ComboBoxItem Content="White Rook" />
-                    <ComboBoxItem Content="White Queen" />
-                    <ComboBoxItem Content="White King" />
-                    <ComboBoxItem Content="Black Pawn" />
-                    <ComboBoxItem Content="Black Knight" />
-                    <ComboBoxItem Content="Black Bishop" />
-                    <ComboBoxItem Content="Black Rook" />
-                    <ComboBoxItem Content="Black Queen" />
-                    <ComboBoxItem Content="Black King" />
-                </ComboBox>
-            </StackPanel>
-        </DataTemplate>-->
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
