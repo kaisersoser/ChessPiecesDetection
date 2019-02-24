@@ -52,13 +52,13 @@
             <Setter Property="FontSize" Value="6" />
             <Setter Property="Height" Value="20" />
         </Style>
-         <!--
+
         <DataTemplate x:Key="BoardPositionDataTemplate" x:DataType="local:PositionInstance">
             <StackPanel Style="{StaticResource BoardPieceViewStackPanelStyle}">
                 <TextBlock Text="{x:Bind PositionID}" Style="{StaticResource BoardPieceCaptionStyle}"/>
                 <Image Source="{x:Bind PositionImage}" Style="{StaticResource PieceImageStyle}"/>
                 <ComboBox Name="PieceType" 
-                          SelectionChanged="PieceType_SelectionChanged" 
+                          SelectionChanged="PieceType_SelectionChanged"
                           Style="{StaticResource PieceTypeComboBoxStyle}"
                           SelectedIndex="0">
                     <ComboBoxItem Content="Empty" />
@@ -76,7 +76,7 @@
                     <ComboBoxItem Content="Black King" />
                 </ComboBox>
             </StackPanel>
-        </DataTemplate> -->
+        </DataTemplate>
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -151,10 +151,10 @@
                               Width="800"
                               Height="800"
                               VerticalScrollBarVisibility="Auto">
-                    <!--
+
                     <GridView ItemsSource="{x:Bind BoardPositions}"
                               IsItemClickEnabled="True"
-                              ItemTemplate="{StaticResource BoardPositionDataTemplate}" /> -->
+                              ItemTemplate="{StaticResource BoardPositionDataTemplate}" />
                 </ScrollViewer>
             </StackPanel>
         </Grid>

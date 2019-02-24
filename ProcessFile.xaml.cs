@@ -112,5 +112,11 @@ namespace ChessPiecesDetection
 
             return array;
         }
+
+        private void PieceType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
     }
 }
