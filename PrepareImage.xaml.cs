@@ -41,10 +41,12 @@ namespace ChessPiecesDetection
             _LocalPersistentObject = e.Parameter as PersistentObjects;
 
             if(_LocalPersistentObject!=null)
+            {
                 if (_LocalPersistentObject.originalLoadedImage != null)
                 {
                     MainImageFrame.Navigate(typeof(ImageLoaded), _LocalPersistentObject);
                 }
+            }               
         }
 
         /// <summary>
@@ -159,7 +161,10 @@ namespace ChessPiecesDetection
         /// <param name="e"></param>
         /// 
         private async void CropImageButton_Click(object sender, RoutedEventArgs e)
-        {
+        {           
+            if (_LocalPersistentObject.bitmapProcessingImage == null)
+                return;
+
             if (!_LocalPersistentObject.isCroppingImage)
             {
                 MainImageFrame.Navigate(typeof(ImageCropping), _LocalPersistentObject);

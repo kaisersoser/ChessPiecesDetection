@@ -31,9 +31,9 @@
             <Setter Property="Stretch" Value="Uniform" />
         </Style>
         <Style TargetType="StackPanel" x:Key="BoardPieceViewStackPanelStyle">
-            <Setter Property="Width" Value="60" />
-            <Setter Property="Height" Value="60" />
-            <Setter Property="Margin" Value="5,5,5,5" />
+            <Setter Property="Width" Value="64" />
+            <Setter Property="Height" Value="100" />
+            <Setter Property="Margin" Value="0,0,0,0" />
             <Setter Property="Orientation" Value="Vertical" />
         </Style>
         <Style TargetType="TextBlock" x:Key="BoardPieceCaptionStyle">
@@ -49,16 +49,16 @@
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="FontSize" Value="6" />
+            <Setter Property="FontSize" Value="7" />
             <Setter Property="Height" Value="20" />
         </Style>
-         <!--
+        
         <DataTemplate x:Key="BoardPositionDataTemplate" x:DataType="local:PositionInstance">
             <StackPanel Style="{StaticResource BoardPieceViewStackPanelStyle}">
                 <TextBlock Text="{x:Bind PositionID}" Style="{StaticResource BoardPieceCaptionStyle}"/>
                 <Image Source="{x:Bind PositionImage}" Style="{StaticResource PieceImageStyle}"/>
                 <ComboBox Name="PieceType" 
-                          SelectionChanged="PieceType_SelectionChanged" 
+                          SelectionChanged="PieceType_SelectionChanged"
                           Style="{StaticResource PieceTypeComboBoxStyle}"
                           SelectedIndex="0">
                     <ComboBoxItem Content="Empty" />
@@ -76,7 +76,7 @@
                     <ComboBoxItem Content="Black King" />
                 </ComboBox>
             </StackPanel>
-        </DataTemplate> -->
+        </DataTemplate>
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -84,11 +84,11 @@
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Wide">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="800" />
+                        <AdaptiveTrigger MinWindowHeight="560" />
                         <AdaptiveTrigger MinWindowWidth="800" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ChessBoardView.Width" Value="800" />
+                        <Setter Target="ChessBoardView.Width" Value="560" />
                         <Setter Target="ChessBoardView.Height" Value="800" />
                     </VisualState.Setters>
                 </VisualState>
@@ -98,8 +98,8 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ChessBoardView.Width" Value="400" />
-                        <Setter Target="ChessBoardView.Height" Value="400" />
+                        <Setter Target="ChessBoardView.Width" Value="560" />
+                        <Setter Target="ChessBoardView.Height" Value="800" />
                     </VisualState.Setters>
                 </VisualState>
 
@@ -140,21 +140,23 @@
         </StackPanel>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="5" />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Row="1" Name="ChessBoardView">
+            <StackPanel Grid.Column="1" Name="ChessBoardView">
                 <ScrollViewer BorderBrush="Gray"
                               BorderThickness="1"
                               Background="White"
-                              Width="800"
+                              Width="560"
                               Height="800"
+                              HorizontalAlignment="Left"
                               VerticalScrollBarVisibility="Auto">
-                    <!--
+
                     <GridView ItemsSource="{x:Bind BoardPositions}"
                               IsItemClickEnabled="True"
-                              ItemTemplate="{StaticResource BoardPositionDataTemplate}" /> -->
+                              ItemTemplate="{StaticResource BoardPositionDataTemplate}" 
+                              />
                 </ScrollViewer>
             </StackPanel>
         </Grid>

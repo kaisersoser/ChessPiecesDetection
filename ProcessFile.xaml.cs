@@ -33,17 +33,17 @@ namespace ChessPiecesDetection
             base.OnNavigatedTo(e);
             _LocalPersistentObject = e.Parameter as PersistentObjects;
 
-            /*
+            
             if (_LocalPersistentObject != null)
-                if (_LocalPersistentObject.originalLoadedImage != null)
+                if (_LocalPersistentObject.bitmapProcessingImage != null)
                 {
-                    MainImageFrame.Navigate(typeof(ImageLoaded), _LocalPersistentObject);
+                    ProcessBoard(_LocalPersistentObject.bitmapProcessingImage);
                 }
-            */
+            
         }
 
         /// <summary>
-        /// 
+        /// Processes the Board image into individual pieces that can be selected and identified seprately.
         /// </summary>
         /// <param name="_bmp"></param>
         private async void ProcessBoard(WriteableBitmap _bmp)
@@ -54,6 +54,8 @@ namespace ChessPiecesDetection
             WriteableBitmap modifiedBitmap = null;
             PositionInstance bPos = null;
             int posSize = 64;
+
+            originalBitmap = originalBitmap.Resize(512, 512, WriteableBitmapExtensions.Interpolation.Bilinear);
 
             BoardPositions.Clear();
 
@@ -111,6 +113,11 @@ namespace ChessPiecesDetection
             }
 
             return array;
+        }
+
+        private void PieceType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
