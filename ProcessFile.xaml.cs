@@ -1,6 +1,10 @@
-﻿using System;
+﻿using DataAccessLibrary;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 using System.Threading.Tasks;
 using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
@@ -16,12 +20,19 @@ namespace ChessPiecesDetection
     public sealed partial class ProcessFile : Page
     {
         PersistentObjects _LocalPersistentObject;
+        StringBuilder _ConsoleStringBuffer;
+        private int _ConsoleLineNumber;
         public ObservableCollection<PositionInstance> BoardPositions { get; set; }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ProcessFile()
         {
             this.InitializeComponent();
-            BoardPositions = new System.Collections.ObjectModel.ObservableCollection<PositionInstance>();
+            BoardPositions = new ObservableCollection<PositionInstance>();
+            _ConsoleStringBuffer = new StringBuilder();
+            UpdateConsole("Starting Image Processing...");
         }
 
         /// <summary>
@@ -42,6 +53,9 @@ namespace ChessPiecesDetection
             
         }
 
+
+
+    
         /// <summary>
         /// Processes the Board image into individual pieces that can be selected and identified seprately.
         /// </summary>
@@ -54,6 +68,8 @@ namespace ChessPiecesDetection
             WriteableBitmap modifiedBitmap = null;
             PositionInstance bPos = null;
             int posSize = 64;
+
+            UpdateConsole("Processing Board Image into Pieces...");
 
             originalBitmap = originalBitmap.Resize(512, 512, WriteableBitmapExtensions.Interpolation.Bilinear);
 
@@ -85,10 +101,12 @@ namespace ChessPiecesDetection
                     BoardPositions.Add(bPos);
                 }
             }
+            UpdateConsole("Processing Done...");
         }
 
         /// <summary>
-        /// 
+        /// Encodes a Bitmap object into a byte array.
+        /// Useful for sending images via JSON to a restful service
         /// </summary>
         /// <param name="bmp"></param>
         /// <returns></returns>
@@ -115,9 +133,80 @@ namespace ChessPiecesDetection
             return array;
         }
 
+
+
+        /// <summary>
+        /// Add log information for the console string buffer
+        /// </summary>
+        /// <param name="info"></param>
+        private void UpdateConsole(String info)
+        {
+            if (_ConsoleStringBuffer == null)
+                return;
+            _ConsoleLineNumber++;
+
+            _ConsoleStringBuffer.AppendFormat("{0}: {1}", _ConsoleLineNumber,info);
+            _ConsoleStringBuffer.Append(Environment.NewLine);
+            ConsoleInfo.Text = _ConsoleStringBuffer.ToString();
+        }
+
+        /// <summary>
+        /// Update the Piece label identity everytime it is changed manually by the user
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PieceType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (sender != null)
+            {
+                int pieceIDPos = 0;
+                ComboBox currentComboBox = (ComboBox)sender;
 
+                var item = (ComboBoxItem)currentComboBox.SelectedItem;
+                PositionInstance bPos = (PositionInstance)item.DataContext;
+                String strPieceName = item.Content.ToString();
+
+                if (bPos != null)
+                {
+                    pieceIDPos = Array.IndexOf(bPos.PiecesNames, strPieceName);
+                    bPos.PieceID = (int)Enum.GetValues(typeof(PositionInstance.Pieces)).GetValue(pieceIDPos);
+                }
+
+            }
+
+        }
+
+        /// <summary>
+        /// Write the configured table into a database table
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WriteToDBButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            String pieceDescriptionStr;
+
+            // Return if no image loaded
+            if (_LocalPersistentObject.bitmapProcessingImage == null)
+                return;
+
+            // Return if no image processed
+            if (BoardPositions.Count <= 0)
+                return;
+
+            UpdateConsole("Start writing each piece as a row in the database");
+
+            // Converts the Observable Collections into a List Object
+            List<PositionInstance> _boardPositions = BoardPositions.ToList<PositionInstance>();
+
+            // Write each position into the database
+            foreach (PositionInstance bp in _boardPositions)
+            {
+                pieceDescriptionStr = new StringBuilder().AppendFormat("Adding {0} label at {1}", bp.PieceName, bp.PositionID).ToString();
+                DataAccess.AddData(bp.PositionID, bp.PositionImageByte, bp.PieceID, bp.PieceName);
+                UpdateConsole(pieceDescriptionStr);
+            }
+
+            UpdateConsole("Database Update Complete");
         }
     }
 }
