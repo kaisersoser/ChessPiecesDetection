@@ -128,6 +128,9 @@
     <Compile Include="ImageLoaded.xaml.cs">
       <DependentUpon>ImageLoaded.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PiecesDBDataView.xaml.cs">
+      <DependentUpon>PiecesDBDataView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PositionInstance.cs" />
     <Compile Include="PrepareImage.xaml.cs">
       <DependentUpon>PrepareImage.xaml</DependentUpon>
@@ -171,6 +174,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ImageLoaded.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PiecesDBDataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
