@@ -10,10 +10,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <!--
         <controls:DataGrid x:Name="piecesGrid">
             
         </controls:DataGrid>
-        -->
+        
     </Grid>
 </Page>

@@ -170,6 +170,7 @@ namespace ChessPiecesDetection
                 {
                     pieceIDPos = Array.IndexOf(bPos.PiecesNames, strPieceName);
                     bPos.PieceID = (int)Enum.GetValues(typeof(PositionInstance.Pieces)).GetValue(pieceIDPos);
+                    bPos.PieceName = strPieceName;
                 }
 
             }
@@ -193,6 +194,7 @@ namespace ChessPiecesDetection
             if (BoardPositions.Count <= 0)
                 return;
 
+            
             UpdateConsole("Start writing each piece as a row in the database");
 
             // Converts the Observable Collections into a List Object
@@ -205,7 +207,10 @@ namespace ChessPiecesDetection
                 DataAccess.AddData(bp.PositionID, bp.PositionImageByte, bp.PieceID, bp.PieceName);
                 UpdateConsole(pieceDescriptionStr);
             }
-
+            
+            int count = DataAccess.GetNumberOfItemsInDB();            
+            
+            UpdateConsole(new StringBuilder().AppendFormat("There are {0} total rows in the database",count).ToString());
             UpdateConsole("Database Update Complete");
         }
     }
