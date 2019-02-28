@@ -14,6 +14,7 @@ using AForge.Imaging.Filters;
 using System.Collections.Generic;
 using System.Drawing;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -41,10 +42,12 @@ namespace ChessPiecesDetection
             _LocalPersistentObject = e.Parameter as PersistentObjects;
 
             if(_LocalPersistentObject!=null)
+            {
                 if (_LocalPersistentObject.originalLoadedImage != null)
                 {
                     MainImageFrame.Navigate(typeof(ImageLoaded), _LocalPersistentObject);
                 }
+            }               
         }
 
         /// <summary>
@@ -135,6 +138,132 @@ namespace ChessPiecesDetection
             MainImageFrame.Navigate(typeof(ImageLoaded), _LocalPersistentObject, new SuppressNavigationTransitionInfo());
         }
 
+        /// <summary>
+        /// Applies a HoughTransform detection on the image to determine image edges and corners
+        /// Not currently used
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HoughTransformProcessBoard_Click(object sender, RoutedEventArgs e)
+        {
+            if (_LocalPersistentObject.bitmapProcessingImage == null)
+                return;
+
+            WriteableBitmap bmp = _LocalPersistentObject.bitmapProcessingImage;
+
+            Bitmap image = AForge.Imaging.Image.Clone((Bitmap)bmp, System.Drawing.Imaging.PixelFormat.Format8bppIndexed);
+
+
+            HoughLineTransformation lineTransform = new HoughLineTransformation();
+            // apply Hough line transofrm
+            lineTransform.ProcessImage(image);
+            Bitmap houghLineImage = lineTransform.ToBitmap();
+            // get lines using relative intensity
+            HoughLine[] lines = lineTransform.GetLinesByRelativeIntensity(0.487);
+
+            int numlines = 0;
+            foreach (HoughLine line in lines)
+            {
+                // get line's radius and theta values
+                int r = line.Radius;
+                double t = line.Theta;
+
+                // check if line is in lower part of the image
+                if (r < 0)
+                {
+                    t += 180;
+                    r = -r;
+                }
+
+                // convert degrees to radians
+                t = (t / 180) * Math.PI;
+
+                // get image centers (all coordinate are measured relative
+                // to center)
+                int w2 = image.Width / 2;
+                int h2 = image.Height / 2;
+
+                double x0 = 0, x1 = 0, y0 = 0, y1 = 0;
+
+                if (line.Theta != 0)
+                {
+                    // none-vertical line
+                    x0 = -w2; // most left point
+                    x1 = w2;  // most right point
+
+                    // calculate corresponding y values
+                    y0 = (-Math.Cos(t) * x0 + r) / Math.Sin(t);
+                    y1 = (-Math.Cos(t) * x1 + r) / Math.Sin(t);
+                }
+                else
+                {
+                    // vertical line
+                    x0 = line.Radius;
+                    x1 = line.Radius;
+
+                    y0 = h2;
+                    y1 = -h2;
+                }
+                int X0 = (int)x0 + w2;
+                int Y0 = (int)h2 - (int)y0;
+                int X1 = (int)x1 + w2;
+                int Y1 = h2 - (int)y1;
+
+                bmp.DrawRectangle(X0,
+                                  Y0,
+                                  X1,
+                                  Y1,
+                                  Colors.Red);
+
+                numlines++;
+            }
+
+            // Now perform blob detection
+            
+            BlobCounter blobCounter = new BlobCounter();
+
+            blobCounter.FilterBlobs = true;
+            blobCounter.MinHeight = 50;
+            blobCounter.MinWidth = 50;
+
+            blobCounter.ProcessImage(image);
+            Blob[] blobs = blobCounter.GetObjectsInformation();
+
+            // check for rectangles
+            SimpleShapeChecker shapeChecker = new SimpleShapeChecker();
+
+            foreach (var blob in blobs)
+            {
+                List<IntPoint> edgePoints = blobCounter.GetBlobsEdgePoints(blob);
+                List<IntPoint> cornerPoints;
+
+                // use the shape checker to extract the corner points
+                if (shapeChecker.IsQuadrilateral(edgePoints, out cornerPoints))
+                {
+                    // only do things if the corners form a rectangle
+                    if (shapeChecker.CheckPolygonSubType(cornerPoints) == PolygonSubType.Square)
+                    {
+                        // here i use the graphics class to draw an overlay, but you
+                        // could also just use the cornerPoints list to calculate your
+                        // x, y, width, height values.
+                        List<AForge.Point> Points = new List<AForge.Point>();
+
+                        bmp.DrawRectangle(cornerPoints[0].X,
+                                          cornerPoints[0].Y,
+                                          cornerPoints[2].X,
+                                          cornerPoints[2].Y,
+                                          Colors.Green);
+
+                        foreach (var point in cornerPoints)
+                        {
+                            Points.Add(new AForge.Point(point.X, point.Y));
+                        }
+                    }
+                }
+            }
+
+            _LocalPersistentObject.bitmapProcessingImage = (WriteableBitmap)bmp;
+        }
 
         /// <summary>
         /// Reset the currently loaded image to its original instance.
@@ -159,7 +288,10 @@ namespace ChessPiecesDetection
         /// <param name="e"></param>
         /// 
         private async void CropImageButton_Click(object sender, RoutedEventArgs e)
-        {
+        {           
+            if (_LocalPersistentObject.bitmapProcessingImage == null)
+                return;
+
             if (!_LocalPersistentObject.isCroppingImage)
             {
                 MainImageFrame.Navigate(typeof(ImageCropping), _LocalPersistentObject);

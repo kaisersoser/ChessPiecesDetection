@@ -25,15 +25,23 @@
             <Setter Property="FontSize" Value="13" />
             <Setter Property="HorizontalAlignment" Value="Center" />
         </Style>
+        <Style TargetType="TextBlock" x:Key="ConsoleTextStyle">
+            <Setter Property="FontFamily" Value="{ThemeResource PhoneFontFamilySemiLight}" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="Foreground" Value="GreenYellow" />
+            <Setter Property="Width" Value="400" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
         <Style TargetType="Image" x:Key="PieceImageStyle">
             <Setter Property="Height" Value="64" />
             <Setter Property="Width" Value="64" />
             <Setter Property="Stretch" Value="Uniform" />
         </Style>
         <Style TargetType="StackPanel" x:Key="BoardPieceViewStackPanelStyle">
-            <Setter Property="Width" Value="60" />
-            <Setter Property="Height" Value="60" />
-            <Setter Property="Margin" Value="5,5,5,5" />
+            <Setter Property="Width" Value="90" />
+            <Setter Property="Height" Value="100" />
+            <Setter Property="Margin" Value="0,0,0,0" />
             <Setter Property="Orientation" Value="Vertical" />
         </Style>
         <Style TargetType="TextBlock" x:Key="BoardPieceCaptionStyle">
@@ -52,13 +60,15 @@
             <Setter Property="FontSize" Value="6" />
             <Setter Property="Height" Value="20" />
         </Style>
-         <!--
+        
         <DataTemplate x:Key="BoardPositionDataTemplate" x:DataType="local:PositionInstance">
             <StackPanel Style="{StaticResource BoardPieceViewStackPanelStyle}">
                 <TextBlock Text="{x:Bind PositionID}" Style="{StaticResource BoardPieceCaptionStyle}"/>
                 <Image Source="{x:Bind PositionImage}" Style="{StaticResource PieceImageStyle}"/>
                 <ComboBox Name="PieceType" 
-                          SelectionChanged="PieceType_SelectionChanged" 
+                          SelectionChanged="PieceType_SelectionChanged"
+                          Height="Auto"
+                          Width="Auto"
                           Style="{StaticResource PieceTypeComboBoxStyle}"
                           SelectedIndex="0">
                     <ComboBoxItem Content="Empty" />
@@ -76,7 +86,7 @@
                     <ComboBoxItem Content="Black King" />
                 </ComboBox>
             </StackPanel>
-        </DataTemplate> -->
+        </DataTemplate>
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -85,11 +95,11 @@
                 <VisualState x:Name="Wide">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowHeight="800" />
-                        <AdaptiveTrigger MinWindowWidth="800" />
+                        <AdaptiveTrigger MinWindowWidth="850" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="ChessBoardView.Width" Value="800" />
-                        <Setter Target="ChessBoardView.Height" Value="800" />
+                        <Setter Target="ChessBoardView.Height" Value="850" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Narrow">
@@ -98,8 +108,8 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ChessBoardView.Width" Value="400" />
-                        <Setter Target="ChessBoardView.Height" Value="400" />
+                        <Setter Target="ChessBoardView.Width" Value="800" />
+                        <Setter Target="ChessBoardView.Height" Value="850" />
                     </VisualState.Setters>
                 </VisualState>
 
@@ -134,28 +144,52 @@
                                Foreground="White"
                                Style="{StaticResource MenuTextStyle}"/>
                 </StackPanel>
-                
+                <StackPanel Grid.Column="1" Margin="10,10,10,10" Orientation="Vertical">
+                    <Button Grid.Column="0" HorizontalAlignment="Center"
+                            Style="{StaticResource MainButtonStyle}"
+                            Name="WriteToDBButton"
+                            Click="WriteToDBButton_Click"
+                            Content="&#59214;">
+                    </Button>
+                    <TextBlock Text="Write to DB" 
+                               HorizontalAlignment="Center"
+                               Foreground="White"
+                               Style="{StaticResource MenuTextStyle}"/>
+                </StackPanel>
 
             </Grid>
         </StackPanel>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="400" />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Row="1" Name="ChessBoardView">
+            <StackPanel Grid.Column="1" 
+                        Name="ChessBoardView"
+                        VerticalAlignment="Top"
+                        Margin="10,10">
                 <ScrollViewer BorderBrush="Gray"
                               BorderThickness="1"
                               Background="White"
                               Width="800"
-                              Height="800"
+                              Height="850"
+                              HorizontalAlignment="Left"
                               VerticalScrollBarVisibility="Auto">
-                    <!--
+
                     <GridView ItemsSource="{x:Bind BoardPositions}"
                               IsItemClickEnabled="True"
-                              ItemTemplate="{StaticResource BoardPositionDataTemplate}" /> -->
+                              ItemTemplate="{StaticResource BoardPositionDataTemplate}" 
+                              />
                 </ScrollViewer>
+            </StackPanel>
+            <StackPanel Grid.Column="3">
+                <ScrollViewer Height="850">
+                    <TextBlock Name="ConsoleInfo" 
+                           Style="{StaticResource ConsoleTextStyle}"/>    
+                </ScrollViewer>
+                
             </StackPanel>
         </Grid>
 
