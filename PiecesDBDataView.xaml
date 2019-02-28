@@ -10,23 +10,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <StackPanel Orientation="Vertical">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="20" />
-                    <ColumnDefinition Width="150" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="1" Name="PageTitle" Text="Review Database"/>
-                <TextBlock Grid.Column="2" Name="RowsInDB" />
-            </Grid>
-
-            <controls:DataGrid x:Name="PiecesTableDataGrid"
-                               Height="800"
-                               Margin="10,10"
-                               AutoGenerateColumns="False"/>
-        </StackPanel>
-        
+        <controls:DataGrid x:Name="piecesGrid">
+            
+        </controls:DataGrid>
         
     </Grid>
 </Page>

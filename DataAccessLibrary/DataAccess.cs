@@ -99,20 +99,15 @@ namespace DataAccessLibrary
         /// Returns a List<PiecesTableRowInstance> representing all rows in the table PiecesTable
         /// </summary>
         /// <returns></returns>
-        public static DataTable GetData(int startRow=0, int endRow=0) 
+        public static List<PiecesTableRowInstance> GetData(int startRow=0, int endRow=0) 
         {
-            // Instatiate data table result
-            DataTable dataTable = new DataTable();
-
-            dataTable.Columns.Add("Primary_Key", typeof(int));
-            dataTable.Columns.Add("PositionID", typeof(string));
-            dataTable.Columns.Add("ImageData", typeof(byte[]));
-            dataTable.Columns.Add("PieceID", typeof(int));
-            dataTable.Columns.Add("PieceName", typeof(string));
-
             if (startRow < 0 || endRow < 0)
                 throw new Exception("Query range must start and end with a row number greater than 0");
-            
+
+            // Instantiate a new instance of the results List
+            List<PiecesTableRowInstance> results = new List<PiecesTableRowInstance>();
+            PiecesTableRowInstance row = null;
+
             // Start SQL Connection
             using (SqliteConnection db =
                 new SqliteConnection("Filename=" + _STR_DB_FILENAME))
@@ -148,12 +143,14 @@ namespace DataAccessLibrary
                         // For each row in PiecesTable
                         while (reader.Read())
                         {
-                            // Add a new row and populate the table
-                            dataTable.Rows.Add(Convert.ToInt32(reader["Primary_Key"]),
-                                               (string)reader["PositionID"],
-                                               (byte[])reader["ImageData"],
-                                               Convert.ToInt32(reader["PieceID"]),
-                                               (string)reader["PieceName"]);
+                            // Instantiate a new PiecesTableRowInstance Object and populate the columns from the database
+                            row = new PiecesTableRowInstance();
+                            row.RowID = Convert.ToInt32(reader["Primary_Key"]);
+                            row.PositionID = (string)reader["PositionID"];
+                            row.PositionImageByte = (byte[])reader["ImageData"];
+                            row.PieceID = Convert.ToInt32(reader["PieceID"]);
+                            row.PieceName = (string)reader["PieceName"];
+                            results.Add(row);
                         }
                         // Close the reader connection
                         reader.Close();
@@ -162,7 +159,7 @@ namespace DataAccessLibrary
                 // Close the database connection
                 db.Close();
             }
-            return dataTable;
+            return results;
         }
     }
 }

@@ -97,12 +97,12 @@
                             <TextBlock Margin="0,20,0,0"
                                        FontFamily="Segoe MDL2 Assets"
                                        FontSize="40"
-                                       Text="&#xE8B9;"/>
+                                       Text="&#59621;"/>
                             <TextBlock Margin="20,20,0,0" 
                                        VerticalAlignment="Center" 
                                        HorizontalAlignment="Center" 
                                        FontSize="36"
-                                   Text="Load Image" />
+                                   Text="Load File" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem Name="ProcessItem">
@@ -111,24 +111,24 @@
                                    Margin="0,20,0,0"
                                    FontFamily="Segoe MDL2 Assets"
                                    FontSize="40"
-                                   Text="&#xE9F5;"/>
+                                   Text="&#59274;"/>
                             <TextBlock Margin="20,20,0,0" FontSize="36"
                                        VerticalAlignment="Center" 
                                        HorizontalAlignment="Center" 
                                        Text="Process Image" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem Name="ViewDatabase">
+                    <ListBoxItem Name="AddBoard">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock 
                                    Margin="0,20,0,0"
                                    FontFamily="Segoe MDL2 Assets"
                                    FontSize="40"
-                                   Text="&#xE809;"/>
+                                   Text="&#59214;"/>
                             <TextBlock Margin="20,20,0,0" FontSize="36"
                                        VerticalAlignment="Center" 
                                        HorizontalAlignment="Center" 
-                                       Text="View Database" />
+                                       Text="Add Board" />
                         </StackPanel>
                     </ListBoxItem>
                 </ListBox>
