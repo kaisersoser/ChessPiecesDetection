@@ -125,8 +125,8 @@ namespace DataAccessLibrary
                 }                    
                 else if (endRow >= 0 && startRow == 0)                          // Select data from start up to endRow
                 {
-                    queryCommand.CommandText = "SELECT [Primary_Key], [PositionID], [ImageData], [PieceID], [PieceName] FROM [" + _STR_TABLE_NAME + "] LIMIT @_startRow";
-                    queryCommand.Parameters.AddWithValue("@_startRow", startRow);
+                    queryCommand.CommandText = "SELECT [Primary_Key], [PositionID], [ImageData], [PieceID], [PieceName] FROM [" + _STR_TABLE_NAME + "] LIMIT @_endRow";
+                    queryCommand.Parameters.AddWithValue("@_endRow", endRow);
                 }
                 else if (startRow > 0 && endRow > 0)                            // Select data from start row to end row
                 {
