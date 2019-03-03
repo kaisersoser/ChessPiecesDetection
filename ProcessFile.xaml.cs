@@ -1,8 +1,12 @@
 ﻿using DataAccessLibrary;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +22,7 @@ namespace ChessPiecesDetection
 {
 
     public sealed partial class ProcessFile : Page
-    {
+    {        
         PersistentObjects _LocalPersistentObject;
         StringBuilder _ConsoleStringBuffer;
         private int _ConsoleLineNumber;
@@ -31,7 +35,7 @@ namespace ChessPiecesDetection
         {
             this.InitializeComponent();
             BoardPositions = new ObservableCollection<PositionInstance>();
-            _ConsoleStringBuffer = new StringBuilder();
+            _ConsoleStringBuffer = new StringBuilder();            
             UpdateConsole("Starting Image Processing...");
         }
 
@@ -44,16 +48,56 @@ namespace ChessPiecesDetection
             base.OnNavigatedTo(e);
             _LocalPersistentObject = e.Parameter as PersistentObjects;
 
-            
+            PositionInstancesFactory();
+
             if (_LocalPersistentObject != null)
                 if (_LocalPersistentObject.bitmapProcessingImage != null)
                 {
-                    ProcessBoard(_LocalPersistentObject.bitmapProcessingImage);
+                    ProcessBoard(_LocalPersistentObject.bitmapProcessingImage);                   
                 }
             
         }
 
+        /// <summary>
+        /// Called when leaving this page/view
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
 
+            while (BoardPositions.Count>0)
+            {
+                PositionInstance pos = BoardPositions.First<PositionInstance>();
+                BoardPositions.Remove(pos);
+                pos.Reinitialize();
+                _LocalPersistentObject.queuePositionInstances.Enqueue(pos);
+            }
+
+            BoardPositions = null;
+        }
+
+
+
+        /// <summary>
+        /// Instantiates a list of PositionInstances and Queues them for future use
+        /// </summary>
+        private void PositionInstancesFactory()
+        {
+            // Only instantiate new objects in the queue if it is empty
+            if (_LocalPersistentObject.queuePositionInstances!= null)
+                if (_LocalPersistentObject.queuePositionInstances.Count > 0)
+                    return;
+
+            _LocalPersistentObject.queuePositionInstances = new Queue<PositionInstance>();
+
+            for (int i = 1; i <= 64; i++)
+            {
+                PositionInstance bPos = new PositionInstance();
+                _LocalPersistentObject.queuePositionInstances.Enqueue(bPos);                
+            }
+
+        }
 
     
         /// <summary>
@@ -86,7 +130,7 @@ namespace ChessPiecesDetection
                     //x1 = h * posSize;
                     //y1 = (8-v) * posSize;
 
-                    bPos = new PositionInstance();
+                    bPos = _LocalPersistentObject.queuePositionInstances.Dequeue();
                     bPos.PositionID = verticalPos[(h - 1)] + (v + 1);
                     bPos.PositionImage = new WriteableBitmap(posSize, posSize);
                     modifiedBitmap = originalBitmap.Crop(x0, y0, posSize, posSize);
@@ -95,13 +139,15 @@ namespace ChessPiecesDetection
 
                     modifiedBitmap = modifiedBitmap.Resize(64, 64, WriteableBitmapExtensions.Interpolation.Bilinear);
                     modifiedBitmap = modifiedBitmap.Gray();
-                    bPos.PositionImageByte = await EncodeJpeg(modifiedBitmap);
+                    bPos.PositionImageByte = await EncodeImage(modifiedBitmap);
                     bPos.PositionImage = modifiedBitmap;
                     bPos.PieceName = "Empty";
                     BoardPositions.Add(bPos);
                 }
             }
             UpdateConsole("Processing Done...");
+
+            //PredictBoardPieces();
         }
 
         /// <summary>
@@ -110,14 +156,14 @@ namespace ChessPiecesDetection
         /// </summary>
         /// <param name="bmp"></param>
         /// <returns></returns>
-        private async Task<byte[]> EncodeJpeg(WriteableBitmap bmp)
+        private async Task<byte[]> EncodeImage(WriteableBitmap bmp)
         {
             SoftwareBitmap soft = SoftwareBitmap.CreateCopyFromBuffer(bmp.PixelBuffer, BitmapPixelFormat.Bgra8, bmp.PixelWidth, bmp.PixelHeight);
             byte[] array = null;
 
             using (var ms = new InMemoryRandomAccessStream())
             {
-                BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.GifEncoderId, ms);
+                BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, ms);
                 encoder.SetSoftwareBitmap(soft);
 
                 try
@@ -168,7 +214,7 @@ namespace ChessPiecesDetection
 
                 if (bPos != null)
                 {
-                    pieceIDPos = Array.IndexOf(bPos.PiecesNames, strPieceName);
+                    pieceIDPos = Array.IndexOf(PositionInstance.PiecesNames, strPieceName);
                     bPos.PieceID = (int)Enum.GetValues(typeof(PositionInstance.Pieces)).GetValue(pieceIDPos);
                     bPos.PieceName = strPieceName;
                 }
@@ -212,6 +258,75 @@ namespace ChessPiecesDetection
             
             UpdateConsole(new StringBuilder().AppendFormat("There are {0} total rows in the database",count).ToString());
             UpdateConsole("Database Update Complete");
+        }
+
+        private String SerializeTable()
+        {
+            
+            var json = JsonConvert.SerializeObject(BoardPositions.ToList<PositionInstance>());
+
+            return json;
+        }
+
+        /// <summary>
+        /// Calls the PredictBoardPieces method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PredictButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            PredictBoardPieces();
+        }
+
+        /// <summary>
+        /// Predicts the pieces on the board for each position
+        /// </summary>
+        private async void PredictBoardPieces()
+        {
+            UpdateConsole("Starting board prediction...");
+            String url = "http://localhost:5000/predict";
+            String str = SerializeTable();
+
+            HttpResponseMessage response;
+
+            // Send request
+            UpdateConsole("Sending board configuration to service...");
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    response = await client.PostAsync(
+                        url, new StringContent(str, Encoding.UTF8, "application/json"));
+                }
+                catch (Exception ex)
+                {
+                    UpdateConsole("An error occured: " + ex.Message);
+                    throw new Exception("Network related error:", ex);
+                }
+            }
+            UpdateConsole("Response received! Processing...");
+
+            // Deserialize Response
+            string json = await response.Content.ReadAsStringAsync();
+            List<PredictedPiece> predictionResults = JsonConvert.DeserializeObject<List<PredictedPiece>>(json);
+
+            int pos = 0;
+            // Update the Observable Collection with the predicted values
+            foreach (PositionInstance position in BoardPositions)
+            {
+                PredictedPiece predictedPiece = predictionResults.ElementAt<PredictedPiece>(pos);
+                if (String.Compare(predictedPiece.PositionID, position.PositionID, true) == 0)
+                {
+                    position.PieceID = predictedPiece.PredictedPieceID;
+                    position.PredictedPieceID = predictedPiece.PredictedPieceID;
+                    position.IsPredicted = true;
+                    UpdateConsole(new StringBuilder().AppendFormat("We Predicted the Piece at {0} is a {1}={2}", position.PositionID,
+                                                                                                                position.PredictedPieceID, PositionInstance.PiecesNames[position.PredictedPieceID]).ToString());
+                }
+                pos++;
+            }
+
+            UpdateConsole("Board prediction finished...");
         }
     }
 }

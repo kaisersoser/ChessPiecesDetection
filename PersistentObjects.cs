@@ -12,6 +12,7 @@ namespace ChessPiecesDetection
 {
     class PersistentObjects
     {
+        public Queue<PositionInstance> queuePositionInstances { get; set; }
         public WriteableBitmap originalLoadedImage { get; set; }
         public WriteableBitmap bitmapProcessingImage { get; set; }        
         public ImageCropping ImageCropperInstance { get; set; }

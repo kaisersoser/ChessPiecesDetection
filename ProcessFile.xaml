@@ -70,20 +70,20 @@
                           Height="Auto"
                           Width="Auto"
                           Style="{StaticResource PieceTypeComboBoxStyle}"
-                          SelectedIndex="0">
-                    <ComboBoxItem Content="Empty" />
-                    <ComboBoxItem Content="White Pawn" />
-                    <ComboBoxItem Content="White Knight" />
-                    <ComboBoxItem Content="White Bishop" />
-                    <ComboBoxItem Content="White Rook" />
-                    <ComboBoxItem Content="White Queen" />
-                    <ComboBoxItem Content="White King" />
-                    <ComboBoxItem Content="Black Pawn" />
-                    <ComboBoxItem Content="Black Knight" />
-                    <ComboBoxItem Content="Black Bishop" />
-                    <ComboBoxItem Content="Black Rook" />
-                    <ComboBoxItem Content="Black Queen" />
-                    <ComboBoxItem Content="Black King" />
+                          SelectedIndex="{x:Bind PieceID}">
+                            <ComboBoxItem Content="Empty" />
+                            <ComboBoxItem Content="White Pawn" />
+                            <ComboBoxItem Content="White Knight" />
+                            <ComboBoxItem Content="White Bishop" />
+                            <ComboBoxItem Content="White Rook" />
+                            <ComboBoxItem Content="White Queen" />
+                            <ComboBoxItem Content="White King" />
+                            <ComboBoxItem Content="Black Pawn" />
+                            <ComboBoxItem Content="Black Knight" />
+                            <ComboBoxItem Content="Black Bishop" />
+                            <ComboBoxItem Content="Black Rook" />
+                            <ComboBoxItem Content="Black Queen" />
+                            <ComboBoxItem Content="Black King" />
                 </ComboBox>
             </StackPanel>
         </DataTemplate>
@@ -137,7 +137,8 @@
                     <Button Grid.Column="0" HorizontalAlignment="Center"
                             Style="{StaticResource MainButtonStyle}"
                             Name="PredictButton"
-                            Content="&#59274;">
+                            Content="&#59274;"
+                            Click="PredictButton_Click">
                     </Button>
                     <TextBlock Text="Predict Board" 
                                HorizontalAlignment="Center"
