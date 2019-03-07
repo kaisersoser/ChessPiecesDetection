@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="ChessPiecesDetection.PrepareImage"
+    x:Class="ChessPiecesDetection.PrepareImagePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ChessPiecesDetection"    
@@ -78,7 +78,7 @@
                     <Button Grid.Column="0" HorizontalAlignment="Center"
                             Style="{StaticResource MainButtonStyle}"
                             Name="ImageLoadButton"
-                            Content="&#59276;" 
+                            Content="&#xE8E5;" 
                             Click="ImageLoadButton_Click">
                     </Button>
                     <TextBlock Text="Load Image" 

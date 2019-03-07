@@ -119,31 +119,37 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ConfigurationsPage.xaml.cs">
+      <DependentUpon>ConfigurationsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ImageAutoCropped.xaml.cs">
       <DependentUpon>ImageAutoCropped.xaml</DependentUpon>
     </Compile>
     <Compile Include="ImageCropping.xaml.cs">
       <DependentUpon>ImageCropping.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ImageLoaded.xaml.cs">
-      <DependentUpon>ImageLoaded.xaml</DependentUpon>
+    <Compile Include="ImageLoadedView.xaml.cs">
+      <DependentUpon>ImageLoadedView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PiecesDBDataView.xaml.cs">
-      <DependentUpon>PiecesDBDataView.xaml</DependentUpon>
+    <Compile Include="PiecesTableDBPage.xaml.cs">
+      <DependentUpon>PiecesTableDBPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="PositionInstance.cs" />
     <Compile Include="PredictedPiece.cs" />
-    <Compile Include="PrepareImage.xaml.cs">
-      <DependentUpon>PrepareImage.xaml</DependentUpon>
+    <Compile Include="PrepareImagePage.xaml.cs">
+      <DependentUpon>PrepareImagePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="PersistentObjects.cs" />
-    <Compile Include="ProcessFile.xaml.cs">
-      <DependentUpon>ProcessFile.xaml</DependentUpon>
+    <Compile Include="ProcessFilePage.xaml.cs">
+      <DependentUpon>ProcessFilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RowDetailsView.xaml.cs">
+      <DependentUpon>RowDetailsView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -166,6 +172,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="ConfigurationsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ImageAutoCropped.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -174,25 +184,29 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ImageLoaded.xaml">
+    <Page Include="ImageLoadedView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PiecesDBDataView.xaml">
+    <Page Include="PiecesTableDBPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PrepareImage.xaml">
+    <Page Include="PrepareImagePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ProcessFile.xaml">
+    <Page Include="ProcessFilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RowDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

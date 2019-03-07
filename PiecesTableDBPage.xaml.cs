@@ -1,11 +1,10 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Controls;
-using Microsoft.Toolkit.Uwp.UI.Extensions;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 using DataAccessLibrary;
 using Windows.UI.Xaml.Navigation;
-using System.Data;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Microsoft.Toolkit.Uwp.UI.Controls;
+using Windows.UI.Xaml.Media.Animation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -14,7 +13,7 @@ namespace ChessPiecesDetection
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class PiecesDBDataView : Page
+    public sealed partial class PiecesTableDBPage : Page
     {
         /// <summary>
         /// Number of rows in the PiecesTable
@@ -44,7 +43,7 @@ namespace ChessPiecesDetection
         /// <summary>
         /// Constructor
         /// </summary>
-        public PiecesDBDataView()
+        public PiecesTableDBPage()
         {
             this.InitializeComponent();
             numberOfRows = DataAccess.GetNumberOfItemsInDB();
@@ -154,5 +153,16 @@ namespace ChessPiecesDetection
             }            
         }
 
+        /// <summary>
+        /// When a row is selected, show the details in the MainDetailsFrame page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PiecesTableDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            PiecesTableRowInstance selectedItem = (PiecesTableRowInstance)((DataGrid) sender).SelectedItem;
+
+            MainDetailsFrame.Navigate(typeof(RowDetailsView), selectedItem, new SuppressNavigationTransitionInfo());
+        }
     }
 }

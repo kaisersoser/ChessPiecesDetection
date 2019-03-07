@@ -33,15 +33,19 @@ namespace ChessPiecesDetection
         {
             if (LoadFile.IsSelected)
             {
-                VisibleFrame.Navigate(typeof(PrepareImage), _PersistentObjects);
+                VisibleFrame.Navigate(typeof(PrepareImagePage), _PersistentObjects);
             }
             else if (ProcessItem.IsSelected)
             {
-                VisibleFrame.Navigate(typeof(ProcessFile), _PersistentObjects);
+                VisibleFrame.Navigate(typeof(ProcessFilePage), _PersistentObjects);
             }
             else if (ViewDatabase.IsSelected)
             {
-                VisibleFrame.Navigate(typeof(PiecesDBDataView), _PersistentObjects);
+                VisibleFrame.Navigate(typeof(PiecesTableDBPage), _PersistentObjects);
+            }
+            else if (ConfigureView.IsSelected)
+            {
+                VisibleFrame.Navigate(typeof(ConfigurationsPage), _PersistentObjects);
             }
         }
     }

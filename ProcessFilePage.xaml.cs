@@ -1,10 +1,8 @@
 ﻿using DataAccessLibrary;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -21,7 +19,7 @@ using Windows.UI.Xaml.Navigation;
 namespace ChessPiecesDetection
 {
 
-    public sealed partial class ProcessFile : Page
+    public sealed partial class ProcessFilePage : Page
     {        
         PersistentObjects _LocalPersistentObject;
         StringBuilder _ConsoleStringBuffer;
@@ -31,7 +29,7 @@ namespace ChessPiecesDetection
         /// <summary>
         /// Constructor
         /// </summary>
-        public ProcessFile()
+        public ProcessFilePage()
         {
             this.InitializeComponent();
             BoardPositions = new ObservableCollection<PositionInstance>();
@@ -135,7 +133,7 @@ namespace ChessPiecesDetection
                     bPos.PositionImage = new WriteableBitmap(posSize, posSize);
                     modifiedBitmap = originalBitmap.Crop(x0, y0, posSize, posSize);
                     bPos.PositionImage = modifiedBitmap;
-                    bPos.PieceID = (int)PositionInstance.Pieces.EPY;
+                    bPos.PieceID = (int)PositionInstance.PieceEnum.EPY;
 
                     modifiedBitmap = modifiedBitmap.Resize(64, 64, WriteableBitmapExtensions.Interpolation.Bilinear);
                     modifiedBitmap = modifiedBitmap.Gray();
@@ -215,7 +213,7 @@ namespace ChessPiecesDetection
                 if (bPos != null)
                 {
                     pieceIDPos = Array.IndexOf(PositionInstance.PiecesNames, strPieceName);
-                    bPos.PieceID = (int)Enum.GetValues(typeof(PositionInstance.Pieces)).GetValue(pieceIDPos);
+                    bPos.PieceID = (int)Enum.GetValues(typeof(PositionInstance.PieceEnum)).GetValue(pieceIDPos);
                     bPos.PieceName = strPieceName;
                 }
 
@@ -284,7 +282,7 @@ namespace ChessPiecesDetection
         private async void PredictBoardPieces()
         {
             UpdateConsole("Starting board prediction...");
-            String url = "http://localhost:5000/predict";
+            String url = _LocalPersistentObject.predictionURLString;
             String str = SerializeTable();
 
             HttpResponseMessage response;
@@ -295,8 +293,9 @@ namespace ChessPiecesDetection
             {
                 try
                 {
+                    Uri uri = new Uri(url);
                     response = await client.PostAsync(
-                        url, new StringContent(str, Encoding.UTF8, "application/json"));
+                        uri, new StringContent(str, Encoding.UTF8, "application/json"));
                 }
                 catch (Exception ex)
                 {
@@ -306,10 +305,20 @@ namespace ChessPiecesDetection
             }
             UpdateConsole("Response received! Processing...");
 
-            // Deserialize Response
-            string json = await response.Content.ReadAsStringAsync();
-            List<PredictedPiece> predictionResults = JsonConvert.DeserializeObject<List<PredictedPiece>>(json);
+            List<PredictedPiece> predictionResults = null;
 
+            try
+            {
+                // Deserialize Response
+                string json = await response.Content.ReadAsStringAsync();
+                predictionResults = JsonConvert.DeserializeObject<List<PredictedPiece>>(json);
+            }
+            catch (Exception ex)
+            {
+                UpdateConsole("An error occured when parsing the response: " + ex.Message);
+                throw new Exception("JSON deserialization error:", ex);
+            }
+            
             int pos = 0;
             // Update the Observable Collection with the predicted values
             foreach (PositionInstance position in BoardPositions)
@@ -321,7 +330,8 @@ namespace ChessPiecesDetection
                     position.PredictedPieceID = predictedPiece.PredictedPieceID;
                     position.IsPredicted = true;
                     UpdateConsole(new StringBuilder().AppendFormat("We Predicted the Piece at {0} is a {1}={2}", position.PositionID,
-                                                                                                                position.PredictedPieceID, PositionInstance.PiecesNames[position.PredictedPieceID]).ToString());
+                                                                                                                position.PredictedPieceID, 
+                                                                                                                PositionInstance.PiecesNames[position.PredictedPieceID]).ToString());
                 }
                 pos++;
             }

@@ -17,11 +17,11 @@ using Windows.UI.Xaml.Navigation;
 
 namespace ChessPiecesDetection
 {
-    public sealed partial class ImageLoaded : Page
+    public sealed partial class ImageLoadedView : Page
     {
         private PersistentObjects _localPersistentObject;                
 
-        public ImageLoaded()
+        public ImageLoadedView()
         {
             this.InitializeComponent();
             _localPersistentObject = new PersistentObjects();

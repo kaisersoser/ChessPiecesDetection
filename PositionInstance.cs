@@ -16,7 +16,7 @@ namespace ChessPiecesDetection
             Reinitialize();
         }
 
-        public enum Pieces
+        public enum PieceEnum
         {
             EPY = 0,      // Empty Square 0
             WPA = 1,      // White Pawn 110

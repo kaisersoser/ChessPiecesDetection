@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
@@ -10,7 +9,6 @@ using Windows.UI.Xaml.Media;
 using AForge;
 using AForge.Imaging;
 using AForge.Math.Geometry;
-using AForge.Imaging.Filters;
 using System.Collections.Generic;
 using System.Drawing;
 using Windows.UI.Xaml.Media.Animation;
@@ -19,14 +17,14 @@ using Windows.UI.Xaml.Media.Animation;
 
 namespace ChessPiecesDetection
 {
-    public sealed partial class PrepareImage : Page
+    public sealed partial class PrepareImagePage : Page
     {
         PersistentObjects _LocalPersistentObject;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        public PrepareImage()
+        public PrepareImagePage()
         {
             this.InitializeComponent();
         }
@@ -44,7 +42,7 @@ namespace ChessPiecesDetection
             {
                 if (_LocalPersistentObject.originalLoadedImage != null)
                 {
-                    MainImageFrame.Navigate(typeof(ImageLoaded), _LocalPersistentObject);
+                    MainImageFrame.Navigate(typeof(ImageLoadedView), _LocalPersistentObject);
                 }
             }               
         }
@@ -77,7 +75,7 @@ namespace ChessPiecesDetection
                 _LocalPersistentObject.originalLoadedImage = _LocalPersistentObject.bitmapProcessingImage;
             }
 
-            MainImageFrame.Navigate(typeof(ImageLoaded), _LocalPersistentObject);
+            MainImageFrame.Navigate(typeof(ImageLoadedView), _LocalPersistentObject);
         }
 
         /// <summary>
@@ -134,7 +132,7 @@ namespace ChessPiecesDetection
             bmp = bmp.Resize(640, 640, WriteableBitmapExtensions.Interpolation.Bilinear);
             _LocalPersistentObject.bitmapProcessingImage = (WriteableBitmap)bmp;
 
-            MainImageFrame.Navigate(typeof(ImageLoaded), _LocalPersistentObject, new SuppressNavigationTransitionInfo());
+            MainImageFrame.Navigate(typeof(ImageLoadedView), _LocalPersistentObject, new SuppressNavigationTransitionInfo());
         }
 
 
@@ -150,7 +148,7 @@ namespace ChessPiecesDetection
                 return;
 
             _LocalPersistentObject.bitmapProcessingImage = _LocalPersistentObject.originalLoadedImage;
-            MainImageFrame.Navigate(typeof(ImageLoaded), _LocalPersistentObject, new SuppressNavigationTransitionInfo());
+            MainImageFrame.Navigate(typeof(ImageLoadedView), _LocalPersistentObject, new SuppressNavigationTransitionInfo());
         }
 
 
@@ -181,7 +179,7 @@ namespace ChessPiecesDetection
                 ImageCropping imageCroppingRef = _LocalPersistentObject.ImageCropperInstance as ImageCropping;
 
                 _LocalPersistentObject.bitmapProcessingImage = await imageCroppingRef.GetCropppedImageBitmap();
-                MainImageFrame.Navigate(typeof(ImageLoaded), _LocalPersistentObject, new SuppressNavigationTransitionInfo());
+                MainImageFrame.Navigate(typeof(ImageLoadedView), _LocalPersistentObject, new SuppressNavigationTransitionInfo());
             }
         }
     }
