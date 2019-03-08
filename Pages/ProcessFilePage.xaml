@@ -69,6 +69,7 @@
                           SelectionChanged="PieceType_SelectionChanged"
                           Height="Auto"
                           Width="Auto"
+                          AutomationProperties.Name="{x:Bind PositionID}"
                           Style="{StaticResource PieceTypeComboBoxStyle}"
                           SelectedIndex="{x:Bind PieceID}">
                             <ComboBoxItem Content="Empty" />
@@ -180,7 +181,7 @@
                               VerticalScrollBarVisibility="Auto">
 
                     <GridView ItemsSource="{x:Bind BoardPositions}"
-                              IsItemClickEnabled="True"
+                              IsItemClickEnabled="False"
                               ItemTemplate="{StaticResource BoardPositionDataTemplate}" 
                               />
                 </ScrollViewer>

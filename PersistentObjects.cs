@@ -16,7 +16,7 @@ namespace ChessPiecesDetection
         public Queue<PositionInstance> queuePositionInstances { get; set; }
         public WriteableBitmap originalLoadedImage { get; set; }
         public WriteableBitmap bitmapProcessingImage { get; set; }        
-        public ImageCropping ImageCropperInstance { get; set; }
+        public ImageCroppingView ImageCropperInstance { get; set; }
         public Boolean isCroppingImage { get; set; }
         public string predictionURLString { get; set; }
 

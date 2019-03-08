@@ -94,11 +94,13 @@
                    HorizontalAlignment="Left">
             <SplitView.Pane>
                 <ListBox Name="MenuListBox"
+                         AutomationProperties.AccessibilityView = "Raw"
                          SelectionMode="Single"
                          Background="DarkGoldenrod"
                          Opacity="0.8"
                          SelectionChanged="MenuListBox_SelectionChanged">
-                    <ListBoxItem Name="LoadFile">
+                    <ListBoxItem Name="LoadFile" 
+                                 AutomationProperties.AccessibilityView = "Raw">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Margin="0,20,0,0"
                                        FontFamily="Segoe MDL2 Assets"
@@ -111,7 +113,8 @@
                                    Text="Load Image" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem Name="ProcessItem">
+                    <ListBoxItem Name="ProcessItem"
+                                 AutomationProperties.AccessibilityView = "Raw">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock 
                                    Margin="0,20,0,0"
@@ -124,7 +127,8 @@
                                        Text="Process Image" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem Name="ViewDatabase">
+                    <ListBoxItem Name="ViewDatabase"
+                                 AutomationProperties.AccessibilityView = "Raw">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock 
                                    Margin="0,20,0,0"
@@ -137,7 +141,8 @@
                                        Text="View Database" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem Name="ConfigureView">
+                    <ListBoxItem Name="ConfigureView"
+                                 AutomationProperties.AccessibilityView = "Raw">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock 
                                    Margin="0,20,0,0"

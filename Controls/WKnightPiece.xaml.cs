@@ -15,11 +15,11 @@ using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace ChessPiecesDetection
+namespace ChessPiecesDetection.Controls
 {
-    public sealed partial class ImageAutoCropped : UserControl
+    public sealed partial class WKnightPiece : UserControl
     {
-        public ImageAutoCropped()
+        public WKnightPiece()
         {
             this.InitializeComponent();
         }

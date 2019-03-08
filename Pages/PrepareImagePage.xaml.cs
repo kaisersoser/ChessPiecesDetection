@@ -165,7 +165,7 @@ namespace ChessPiecesDetection
 
             if (!_LocalPersistentObject.isCroppingImage)
             {
-                MainImageFrame.Navigate(typeof(ImageCropping), _LocalPersistentObject);
+                MainImageFrame.Navigate(typeof(ImageCroppingView), _LocalPersistentObject);
                 CropImageButton.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 245, 245, 220));    // Beige: 245, 245, 220
                 CropImageButton.Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 0, 0));                
             }
@@ -176,7 +176,7 @@ namespace ChessPiecesDetection
                 CropImageButton.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 0, 0));
                 _LocalPersistentObject.isCroppingImage = false;
 
-                ImageCropping imageCroppingRef = _LocalPersistentObject.ImageCropperInstance as ImageCropping;
+                ImageCroppingView imageCroppingRef = _LocalPersistentObject.ImageCropperInstance as ImageCroppingView;
 
                 _LocalPersistentObject.bitmapProcessingImage = await imageCroppingRef.GetCropppedImageBitmap();
                 MainImageFrame.Navigate(typeof(ImageLoadedView), _LocalPersistentObject, new SuppressNavigationTransitionInfo());

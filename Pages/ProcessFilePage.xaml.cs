@@ -24,7 +24,7 @@ namespace ChessPiecesDetection
         PersistentObjects _LocalPersistentObject;
         StringBuilder _ConsoleStringBuffer;
         private int _ConsoleLineNumber;
-        public ObservableCollection<PositionInstance> BoardPositions { get; set; }
+        private ObservableCollection<PositionInstance> BoardPositions { get; set; }
 
         /// <summary>
         /// Constructor
@@ -71,7 +71,7 @@ namespace ChessPiecesDetection
                 pos.Reinitialize();
                 _LocalPersistentObject.queuePositionInstances.Enqueue(pos);
             }
-
+            
             BoardPositions = null;
         }
 
