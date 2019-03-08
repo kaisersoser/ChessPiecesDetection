@@ -104,11 +104,12 @@ namespace ChessPiecesDetection
         /// <param name="_bmp"></param>
         private async void ProcessBoard(WriteableBitmap _bmp)
         {
+            if (BoardPositions == null)
+                return;
+
             String[] verticalPos = { "a", "b", "c", "d", "e", "f", "g", "h" };
 
             WriteableBitmap originalBitmap = _bmp;
-            WriteableBitmap modifiedBitmap = null;
-            PositionInstance bPos = null;
             int posSize = 64;
 
             UpdateConsole("Processing Board Image into Pieces...");
@@ -116,22 +117,19 @@ namespace ChessPiecesDetection
             originalBitmap = originalBitmap.Resize(512, 512, WriteableBitmapExtensions.Interpolation.Bilinear);
 
             BoardPositions.Clear();
-
-            int x0 = 0, y0 = 0;
-
             for (int v = 7; v >= 0; v--)
             {
                 for (int h = 1; h <= 8; h++)
                 {
-                    x0 = (h - 1) * posSize;
-                    y0 = (8 - (v + 1)) * posSize;
+                    int x0 = (h - 1) * posSize;
+                    int y0 = (8 - (v + 1)) * posSize;
                     //x1 = h * posSize;
                     //y1 = (8-v) * posSize;
 
-                    bPos = _LocalPersistentObject.queuePositionInstances.Dequeue();
+                    PositionInstance bPos = _LocalPersistentObject.queuePositionInstances.Dequeue();
                     bPos.PositionID = verticalPos[(h - 1)] + (v + 1);
                     bPos.PositionImage = new WriteableBitmap(posSize, posSize);
-                    modifiedBitmap = originalBitmap.Crop(x0, y0, posSize, posSize);
+                    WriteableBitmap modifiedBitmap = originalBitmap.Crop(x0, y0, posSize, posSize);
                     bPos.PositionImage = modifiedBitmap;
                     bPos.PieceID = (int)PositionInstance.PieceEnum.EPY;
 
@@ -203,7 +201,6 @@ namespace ChessPiecesDetection
         {
             if (sender != null)
             {
-                int pieceIDPos = 0;
                 ComboBox currentComboBox = (ComboBox)sender;
 
                 var item = (ComboBoxItem)currentComboBox.SelectedItem;
@@ -212,7 +209,7 @@ namespace ChessPiecesDetection
 
                 if (bPos != null)
                 {
-                    pieceIDPos = Array.IndexOf(PositionInstance.PiecesNames, strPieceName);
+                    int pieceIDPos = Array.IndexOf(PositionInstance.PiecesNames, strPieceName);
                     bPos.PieceID = (int)Enum.GetValues(typeof(PositionInstance.PieceEnum)).GetValue(pieceIDPos);
                     bPos.PieceName = strPieceName;
                 }
@@ -304,9 +301,7 @@ namespace ChessPiecesDetection
                 }
             }
             UpdateConsole("Response received! Processing...");
-
-            List<PredictedPiece> predictionResults = null;
-
+            List<PredictedPiece> predictionResults;
             try
             {
                 // Deserialize Response

@@ -36,6 +36,8 @@
         <Style TargetType="Image" x:Key="PieceImageStyle">
             <Setter Property="Height" Value="64" />
             <Setter Property="Width" Value="64" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Margin" Value="5" />
             <Setter Property="Stretch" Value="Uniform" />
         </Style>
         <Style TargetType="StackPanel" x:Key="BoardPieceViewStackPanelStyle">
@@ -47,11 +49,13 @@
         <Style TargetType="TextBlock" x:Key="BoardPieceCaptionStyle">
             <Setter Property="Style" Value="{StaticResource CaptionTextBlockStyle}" />
             <Setter Property="Foreground" Value="Black" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="FontSize" Value="8" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="Margin" Value="5,5" />
             <Setter Property="TextWrapping" Value="NoWrap" />
         </Style>
-        <Style TargetType="ComboBox" x:Key="PieceTypeComboBoxStyle">
+        <!--<Style TargetType="ComboBox" x:Key="PieceTypeComboBoxStyle">
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="BorderBrush" Value="DimGray" />
             <Setter Property="Background" Value="White" />
@@ -59,13 +63,13 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="FontSize" Value="6" />
             <Setter Property="Height" Value="20" />
-        </Style>
+        </Style>-->
         
         <DataTemplate x:Key="BoardPositionDataTemplate" x:DataType="local:PositionInstance">
-            <StackPanel Style="{StaticResource BoardPieceViewStackPanelStyle}">
+            <StackPanel Style="{StaticResource BoardPieceViewStackPanelStyle}" Background="Bisque">
                 <TextBlock Text="{x:Bind PositionID}" Style="{StaticResource BoardPieceCaptionStyle}"/>
                 <Image Source="{x:Bind PositionImage}" Style="{StaticResource PieceImageStyle}"/>
-                <ComboBox Name="PieceType" 
+                <!-- <ComboBox Name="PieceType" 
                           SelectionChanged="PieceType_SelectionChanged"
                           Height="Auto"
                           Width="Auto"
@@ -85,7 +89,7 @@
                             <ComboBoxItem Content="Black Rook" />
                             <ComboBoxItem Content="Black Queen" />
                             <ComboBoxItem Content="Black King" />
-                </ComboBox>
+                </ComboBox> -->
             </StackPanel>
         </DataTemplate>
     </Page.Resources>
@@ -170,11 +174,11 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="1" 
                         Name="ChessBoardView"
-                        VerticalAlignment="Top"
+                        VerticalAlignment="Top"                        
                         Margin="10,10">
                 <ScrollViewer BorderBrush="Gray"
                               BorderThickness="1"
-                              Background="White"
+                              Background="Bisque"
                               Width="800"
                               Height="850"
                               HorizontalAlignment="Left"
