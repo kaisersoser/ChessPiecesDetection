@@ -1,18 +1,15 @@
-﻿<Page
-    x:Class="ChessPiecesDetection.ImageCropping"
+﻿<UserControl
+    x:Class="ChessPiecesDetection.ImageAutoCroppedView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ChessPiecesDetection"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    d:DesignHeight="640"
-    d:DesignWidth="640">
+    d:DesignHeight="300"
+    d:DesignWidth="400">
 
     <Grid>
-        <controls:ImageCropper x:Name="CroppedImage"
-                               CropShape="Rectangular"
-                               ThumbPlacement="All" />
+
     </Grid>
-</Page>
+</UserControl>

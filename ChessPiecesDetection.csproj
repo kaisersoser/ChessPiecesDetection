@@ -119,30 +119,76 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ImageAutoCropped.xaml.cs">
-      <DependentUpon>ImageAutoCropped.xaml</DependentUpon>
+    <Compile Include="Controls\BBishopPiece.xaml.cs">
+      <DependentUpon>BBishopPiece.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ImageCropping.xaml.cs">
-      <DependentUpon>ImageCropping.xaml</DependentUpon>
+    <Compile Include="Controls\BKingPiece.xaml.cs">
+      <DependentUpon>BKingPiece.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ImageLoaded.xaml.cs">
-      <DependentUpon>ImageLoaded.xaml</DependentUpon>
+    <Compile Include="Controls\BKnightPiece.xaml.cs">
+      <DependentUpon>BKnightPiece.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PiecesDBDataView.xaml.cs">
-      <DependentUpon>PiecesDBDataView.xaml</DependentUpon>
+    <Compile Include="Controls\BPawnPiece.xaml.cs">
+      <DependentUpon>BPawnPiece.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\BQueenPiece.xaml.cs">
+      <DependentUpon>BQueenPiece.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\BRookPiece.xaml.cs">
+      <DependentUpon>BRookPiece.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SelectPiece.xaml.cs">
+      <DependentUpon>SelectPiece.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WBishopPiece.xaml.cs">
+      <DependentUpon>WBishopPiece.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WKingPiece.xaml.cs">
+      <DependentUpon>WKingPiece.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WKnightPiece.xaml.cs">
+      <DependentUpon>WKnightPiece.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WPawnPiece.xaml.cs">
+      <DependentUpon>WPawnPiece.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WQueenPiece.xaml.cs">
+      <DependentUpon>WQueenPiece.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WRookPiece.xaml.cs">
+      <DependentUpon>WRookPiece.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ConfigurationsPage.xaml.cs">
+      <DependentUpon>ConfigurationsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ImageAutoCroppedView.xaml.cs">
+      <DependentUpon>ImageAutoCroppedView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ImageCroppingView.xaml.cs">
+      <DependentUpon>ImageCroppingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ImageLoadedView.xaml.cs">
+      <DependentUpon>ImageLoadedView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PiecesTableDBPage.xaml.cs">
+      <DependentUpon>PiecesTableDBPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="PositionInstance.cs" />
-    <Compile Include="PrepareImage.xaml.cs">
-      <DependentUpon>PrepareImage.xaml</DependentUpon>
+    <Compile Include="Pages\PredictedPiece.cs" />
+    <Compile Include="Pages\PrepareImagePage.xaml.cs">
+      <DependentUpon>PrepareImagePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="PersistentObjects.cs" />
-    <Compile Include="ProcessFile.xaml.cs">
-      <DependentUpon>ProcessFile.xaml</DependentUpon>
+    <Compile Include="Pages\ProcessFilePage.xaml.cs">
+      <DependentUpon>ProcessFilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\RowDetailsView.xaml.cs">
+      <DependentUpon>RowDetailsView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -165,33 +211,93 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="ImageAutoCropped.xaml">
+    <Page Include="Controls\BBishopPiece.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ImageCropping.xaml">
+    <Page Include="Controls\BKingPiece.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ImageLoaded.xaml">
+    <Page Include="Controls\BKnightPiece.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PiecesDBDataView.xaml">
+    <Page Include="Controls\BPawnPiece.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PrepareImage.xaml">
+    <Page Include="Controls\BQueenPiece.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ProcessFile.xaml">
+    <Page Include="Controls\BRookPiece.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SelectPiece.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\WBishopPiece.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\WKingPiece.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\WKnightPiece.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\WPawnPiece.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\WQueenPiece.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\WRookPiece.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ConfigurationsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ImageAutoCroppedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ImageCroppingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ImageLoadedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PiecesTableDBPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PrepareImagePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ProcessFilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\RowDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +312,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls.DataGrid">
       <Version>5.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.1</Version>
     </PackageReference>
     <PackageReference Include="portable.aforge.core">
       <Version>2.2.5.60302</Version>

@@ -1,0 +1,120 @@
+﻿<Page
+    x:Class="ChessPiecesDetection.RowDetailsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ChessPiecesDetection"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="500"
+    Height="300"
+    mc:Ignorable="d"
+    Background="Transparent">
+
+    <Page.Resources>
+        <Style TargetType="TextBox" x:Key="MainTextBlockStyle">
+            <Setter Property="FontFamily" Value="Arial" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="5,5,5,5" />
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" Height="300" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="10" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Name="PieceImage" Margin="10,10" 
+                           Width="188" Height="188"
+                           VerticalAlignment="Top"/>
+                    <StackPanel Grid.Column="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" 
+                                     Text="Row ID:" 
+                                     Style="{StaticResource MainTextBlockStyle}"/>
+                                <TextBox Grid.Column="1" 
+                                     Name="Row_ID_Details"
+                                     Width="150"
+                                     Style="{StaticResource MainTextBlockStyle}"/>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" 
+                                     Text="Position ID:" 
+                                     Style="{StaticResource MainTextBlockStyle}"/>
+                                <TextBox Grid.Column="1" 
+                                     Name="Position_ID_Details"
+                                     Width="150"
+                                     Style="{StaticResource MainTextBlockStyle}"/>
+                            </Grid>
+                            <Grid Grid.Row="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" 
+                                     Text="Piece ID:" 
+                                     Style="{StaticResource MainTextBlockStyle}"/>
+                                <TextBox Grid.Column="1" 
+                                     Name="Piece_ID_Details"
+                                     Width="150"
+                                     Style="{StaticResource MainTextBlockStyle}"/>
+                            </Grid>
+                            <Grid Grid.Row="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" 
+                                     Text="Piece Name:" 
+                                     Style="{StaticResource MainTextBlockStyle}"/>
+                                <TextBox Grid.Column="1" 
+                                     Name="Piece_Name_Details"
+                                     Width="150"
+                                     Style="{StaticResource MainTextBlockStyle}"/>
+                            </Grid>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

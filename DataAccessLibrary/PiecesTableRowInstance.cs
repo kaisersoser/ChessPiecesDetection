@@ -4,6 +4,9 @@ using System.Text;
 
 namespace DataAccessLibrary
 {
+    /// <summary>
+    /// Represents an instance of a row in the PiecesTable
+    /// </summary>
     public class PiecesTableRowInstance
     {
         public int RowID { get; set; }

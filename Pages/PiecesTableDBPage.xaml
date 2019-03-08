@@ -1,0 +1,87 @@
+﻿<Page
+    x:Class="ChessPiecesDetection.PiecesTableDBPage"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ChessPiecesDetection"    
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <Style TargetType="Button" x:Key="TableNavigationButtonStyle">
+            <Setter Property="Width" Value="50" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Margin" Value="5,5,5,5" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="TextBlock" x:Key="TableInfoTextBlockStyle">
+            <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Margin" Value="5,5,5,5" />
+            <Setter Property="VerticalAlignment" Value="Center" />            
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="1" 
+                           Name="PageTitle" 
+                           Text="Review Database"
+                           Style="{StaticResource TableInfoTextBlockStyle}"/>
+                <TextBlock Grid.Column="2" 
+                           Name="RowsInDB" 
+                           Style="{StaticResource TableInfoTextBlockStyle}"/>
+                <StackPanel Grid.Column="3" Orientation="Horizontal">
+                    <Button Name="MoveToFirst" 
+                        Style="{StaticResource TableNavigationButtonStyle}" 
+                        Content="&#xE892;" 
+                        Click="MoveToFirst_Click"/>
+                    <Button Name="MoveBackward" 
+                        Style="{StaticResource TableNavigationButtonStyle}" 
+                        Content="&#xE76B;"
+                        Click="MoveBackward_Click"/>
+                    <Button Name="MoveForeward" 
+                        Style="{StaticResource TableNavigationButtonStyle}" 
+                        Content="&#xE76C;"
+                        Click="MoveForeward_Click"/>
+                    <Button Name="MoveToLast" 
+                        Style="{StaticResource TableNavigationButtonStyle}" 
+                        Content="&#xE893;"
+                        Click="MoveToLast_Click"/>
+                </StackPanel>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="700" />
+                    <ColumnDefinition Width="500" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <controls:DataGrid Grid.Column="1" x:Name="PiecesTableDataGrid"
+                               Height="800"
+                               Margin="10,10"
+                               AutoGenerateColumns="True"
+                               ItemsSource="{x:Bind PiecesTableDataSource}" SelectionChanged="PiecesTableDataGrid_SelectionChanged">
+                </controls:DataGrid>
+                <Frame Grid.Column="2" 
+                   VerticalAlignment="Top"
+                   Name="MainDetailsFrame" 
+                   Margin="20,20,20,20"/>
+            </Grid>
+
+        </StackPanel>
+    </Grid>
+</Page>

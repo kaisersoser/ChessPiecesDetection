@@ -3,9 +3,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    
     mc:Ignorable="d">
-    
+
     <Page.Resources>
         <Style TargetType="Button" x:Key="MainButtonStyle">
             <Setter Property="Background" Value="Black" />
@@ -33,6 +33,14 @@
             <Setter Property="FontSize" Value="30" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Margin" Value="10,0,0,0" />
+        </Style>
+        <Style TargetType="TextBlock" x:Key="PageTitleTextBlockStyle">
+            <Setter Property="FontFamily" Value="Berlin Sans FB Demi" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="10,10,0,0" />
         </Style>
         <Style TargetType="StackPanel" x:Key="BoardPieceViewStackPanelStyle">
             <Setter Property="Width" Value="100" />
@@ -73,11 +81,9 @@
                     Click="HamburgerButton_Click"
                     RelativePanel.AlignLeftWithPanel="True"/>
             <TextBlock Name="PageTitleTextBlock"
-                       Margin="20,20,0,0"
-                       Text="Load Chess Board"
-                       VerticalAlignment="Center"
-                       FontFamily="50"
-                       FontWeight="Bold"
+                       Margin="5,20,0,0"
+                       Text="CHESS BOARD PREDICTION TOOL"                       
+                       Style="{StaticResource PageTitleTextBlockStyle}"
                        RelativePanel.RightOf="HamburgerButton" />
         </RelativePanel>
         <SplitView Name="MySplitView"
@@ -88,11 +94,13 @@
                    HorizontalAlignment="Left">
             <SplitView.Pane>
                 <ListBox Name="MenuListBox"
+                         AutomationProperties.AccessibilityView = "Raw"
                          SelectionMode="Single"
                          Background="DarkGoldenrod"
                          Opacity="0.8"
                          SelectionChanged="MenuListBox_SelectionChanged">
-                    <ListBoxItem Name="LoadFile">
+                    <ListBoxItem Name="LoadFile" 
+                                 AutomationProperties.AccessibilityView = "Raw">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Margin="0,20,0,0"
                                        FontFamily="Segoe MDL2 Assets"
@@ -105,7 +113,8 @@
                                    Text="Load Image" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem Name="ProcessItem">
+                    <ListBoxItem Name="ProcessItem"
+                                 AutomationProperties.AccessibilityView = "Raw">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock 
                                    Margin="0,20,0,0"
@@ -118,7 +127,8 @@
                                        Text="Process Image" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem Name="ViewDatabase">
+                    <ListBoxItem Name="ViewDatabase"
+                                 AutomationProperties.AccessibilityView = "Raw">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock 
                                    Margin="0,20,0,0"
@@ -131,61 +141,25 @@
                                        Text="View Database" />
                         </StackPanel>
                     </ListBoxItem>
+                    <ListBoxItem Name="ConfigureView"
+                                 AutomationProperties.AccessibilityView = "Raw">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock 
+                                   Margin="0,20,0,0"
+                                   FontFamily="Segoe MDL2 Assets"
+                                   FontSize="40"
+                                   Text="&#xE9E9;"/>
+                            <TextBlock Margin="20,20,0,0" FontSize="36"
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" 
+                                       Text="Configure" />
+                        </StackPanel>
+                    </ListBoxItem>
                 </ListBox>
             </SplitView.Pane>
             <SplitView.Content>
                 <Frame Name="VisibleFrame"/>
             </SplitView.Content>
         </SplitView>
-        <!--
-        
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="700" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" >
-                <Image Name="ImageView"                   
-                   Width="512"
-                   Height="512"
-                   VerticalAlignment="Top"                  
-                   Margin="0,50,0,0"/>
-                <Button     Name="DetectBoard"
-                            Content="Process Board"
-                            Click="DetectBoard_Click" 
-                            Grid.Column="0"
-                            Margin="0,10"
-                            Style="{StaticResource MainButtonStyle}"/>
-                <Button     Name="SaveBoard"
-                            Content="Save Board Data"
-                            Click="SaveBoard_Click"
-                            Grid.Column="0"
-                            Margin="0,10"
-                            Style="{StaticResource MainButtonStyle}"/>
-            </StackPanel>
-
-            <Grid Grid.Column="1" Name="ProcessingToolsGrid" Visibility="Visible">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="10" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <StackPanel Grid.Row="1" Name="DonutsSelectionView">
-                    <ScrollViewer BorderBrush="Gray"
-                              BorderThickness="1"
-                              Background="White"
-                              Width="950"
-                              Height="850"
-                              VerticalScrollBarVisibility="Auto">
-
-
-                        <GridView ItemsSource="{x:Bind BoardPositions}"
-                                      IsItemClickEnabled="False" 
-                                      ItemTemplate="{StaticResource BoardPositionDataTemplate}" />
-
-                    </ScrollViewer>
-                </StackPanel>
-            </Grid>
-        </Grid> -->
-    </Grid> 
+    </Grid>
 </Page>
