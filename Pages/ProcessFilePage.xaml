@@ -48,48 +48,39 @@
         </Style>
         <Style TargetType="TextBlock" x:Key="BoardPieceCaptionStyle">
             <Setter Property="Style" Value="{StaticResource CaptionTextBlockStyle}" />
-            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Foreground" Value="White" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="Width" Value="20"/>
-            <Setter Property="FontSize" Value="10" />
-            <Setter Property="Margin" Value="5,5" />
+            <Setter Property="FontSize" Value="8" />
+            <Setter Property="Margin" Value="5" />
             <Setter Property="TextWrapping" Value="NoWrap" />
         </Style>
-        <!--<Style TargetType="ComboBox" x:Key="PieceTypeComboBoxStyle">
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="BorderBrush" Value="DimGray" />
-            <Setter Property="Background" Value="White" />
-            <Setter Property="Foreground" Value="Black" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="FontSize" Value="6" />
-            <Setter Property="Height" Value="20" />
-        </Style>-->
-        
         <DataTemplate x:Key="BoardPositionDataTemplate" x:DataType="local:PositionInstance">
-            <StackPanel Style="{StaticResource BoardPieceViewStackPanelStyle}" Background="Bisque">
-                <TextBlock Text="{x:Bind PositionID}" Style="{StaticResource BoardPieceCaptionStyle}"/>
+            <StackPanel Style="{StaticResource BoardPieceViewStackPanelStyle}" Background="Black">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="{x:Bind PositionID}" Style="{StaticResource BoardPieceCaptionStyle}"/>
+                    <TextBlock Grid.Column="1"
+                               Name="PredictedPieceKey"
+                               HorizontalTextAlignment="Left" 
+                               HorizontalAlignment="Left" 
+                               Text="{Binding PieceKeyID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                               Style="{StaticResource BoardPieceCaptionStyle}"/>
+                    <Button Grid.Column="2"                             
+                            Name="SelectPieceTypeButton" 
+                            Content="&#xE712;" 
+                            FontFamily="Segoe MDL2 Assets" 
+                            FontSize="10" 
+                            Background="Transparent"
+                            Foreground="Gold"
+                            BorderThickness="0"
+                            Width="30"/>
+                </Grid>
                 <Image Source="{x:Bind PositionImage}" Style="{StaticResource PieceImageStyle}"/>
-                <!-- <ComboBox Name="PieceType" 
-                          SelectionChanged="PieceType_SelectionChanged"
-                          Height="Auto"
-                          Width="Auto"
-                          AutomationProperties.Name="{x:Bind PositionID}"
-                          Style="{StaticResource PieceTypeComboBoxStyle}"
-                          SelectedIndex="{x:Bind PieceID}">
-                            <ComboBoxItem Content="Empty" />
-                            <ComboBoxItem Content="White Pawn" />
-                            <ComboBoxItem Content="White Knight" />
-                            <ComboBoxItem Content="White Bishop" />
-                            <ComboBoxItem Content="White Rook" />
-                            <ComboBoxItem Content="White Queen" />
-                            <ComboBoxItem Content="White King" />
-                            <ComboBoxItem Content="Black Pawn" />
-                            <ComboBoxItem Content="Black Knight" />
-                            <ComboBoxItem Content="Black Bishop" />
-                            <ComboBoxItem Content="Black Rook" />
-                            <ComboBoxItem Content="Black Queen" />
-                            <ComboBoxItem Content="Black King" />
-                </ComboBox> -->
             </StackPanel>
         </DataTemplate>
     </Page.Resources>
@@ -178,7 +169,7 @@
                         Margin="10,10">
                 <ScrollViewer BorderBrush="Gray"
                               BorderThickness="1"
-                              Background="Bisque"
+                              Background="Black"
                               Width="800"
                               Height="850"
                               HorizontalAlignment="Left"

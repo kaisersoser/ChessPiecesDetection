@@ -24,6 +24,9 @@ namespace ChessPiecesDetection
         PersistentObjects _LocalPersistentObject;
         StringBuilder _ConsoleStringBuffer;
         private int _ConsoleLineNumber;
+
+        
+
         private ObservableCollection<PositionInstance> BoardPositions { get; set; }
 
         /// <summary>
@@ -323,15 +326,17 @@ namespace ChessPiecesDetection
                 {
                     position.PieceID = predictedPiece.PredictedPieceID;
                     position.PredictedPieceID = predictedPiece.PredictedPieceID;
+                    position.PieceKeyID = PositionInstance.GetPieceKeyFromPieceID(position.PredictedPieceID);
                     position.IsPredicted = true;
                     UpdateConsole(new StringBuilder().AppendFormat("We Predicted the Piece at {0} is a {1}={2}", position.PositionID,
                                                                                                                 position.PredictedPieceID, 
-                                                                                                                PositionInstance.PiecesNames[position.PredictedPieceID]).ToString());
+                                                                                                                PositionInstance.PiecesNames[position.PredictedPieceID]).ToString());                                        
                 }
                 pos++;
             }
 
             UpdateConsole("Board prediction finished...");
         }
+
     }
 }

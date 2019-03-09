@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using Windows.UI.Xaml.Media.Imaging;
+using System.Runtime.CompilerServices;
+using System.ComponentModel;
 
 namespace ChessPiecesDetection
 {
@@ -9,8 +11,10 @@ namespace ChessPiecesDetection
     /// Contains information such as the piece type, name, position, image and predicted piece type.
     /// </summary>
     [DataContract]
-    public class PositionInstance
+    public class PositionInstance: INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
         public PositionInstance()
         {
             Reinitialize();
@@ -79,6 +83,21 @@ namespace ChessPiecesDetection
         public int PredictedPieceID { get; set; }
 
         /// <summary>
+        /// Stores a 3 letter abbreviation representing the current predicted piece
+        /// </summary>
+        /// 
+        private string pieceKeyID;
+        public string PieceKeyID
+        {
+            get { return this.pieceKeyID; }
+            set
+            {
+                this.pieceKeyID = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// Flag indicating if a piece has been predicted or not
         /// </summary>
         public bool IsPredicted { get; set; }
@@ -91,6 +110,23 @@ namespace ChessPiecesDetection
         public static string[] PiecesNames => piecesNames;
 
         /// <summary>
+        /// Returns the type of PieceKey using the given ID.
+        /// </summary>
+        /// <param name="pieceID"></param>
+        /// <returns></returns>
+        public static string GetPieceKeyFromPieceID(int pieceID)
+        {
+            return ((PieceEnum)pieceID).ToString();
+        }
+
+
+        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            // Raise the PropertyChanged event, passing the name of the property whose value has changed.
+            this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
         /// ReInitializes the PositionInstance Object
         /// </summary>
         public void Reinitialize()
@@ -100,6 +136,8 @@ namespace ChessPiecesDetection
             PositionImageByte = null;
             PieceID = 0;
             PieceName = null;
+            pieceKeyID = null;
+            PieceKeyID = null;
             PredictedPieceID = 0;
             IsPredicted = false;
             IsWrongPrediction = false;
