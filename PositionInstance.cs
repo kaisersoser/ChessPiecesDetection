@@ -23,18 +23,18 @@ namespace ChessPiecesDetection
         public enum PieceEnum
         {
             EPY = 0,      // Empty Square 0
-            WPA = 1,      // White Pawn 110
-            WKN = 2,      // White Knight 111
-            WBS = 3,      // White Bishop 112
-            WRK = 4,      // White Rook 113
-            WQN = 5,      // White Queen 114
-            WKG = 6,      // White King 115
-            BPA = 7,      // Black Pawn 210
-            BKN = 8,      // Black Knight 211
-            BBS = 9,      // Black Bishop 212
-            BRK = 10,      // Black Rook 213
-            BQN = 11,      // Black Queen 214
-            BKG = 12,      // Black King 215
+            WPA = 1,      // White Pawn 1
+            WKN = 2,      // White Knight 2
+            WBS = 3,      // White Bishop 3
+            WRK = 4,      // White Rook 4
+            WQN = 5,      // White Queen 5
+            WKG = 6,      // White King 6
+            BPA = 7,      // Black Pawn 7
+            BKN = 8,      // Black Knight 8
+            BBS = 9,      // Black Bishop 9
+            BRK = 10,      // Black Rook 10
+            BQN = 11,      // Black Queen 11
+            BKG = 12,      // Black King 12
         }
 
         private static readonly String[] piecesNames = {
@@ -117,6 +117,16 @@ namespace ChessPiecesDetection
         public static string GetPieceKeyFromPieceID(int pieceID)
         {
             return ((PieceEnum)pieceID).ToString();
+        }
+
+        /// <summary>
+        /// Returns the name of the given PieceID type
+        /// </summary>
+        /// <param name="pieceID"></param>
+        /// <returns></returns>
+        public static string GetPieceNameFromPieceID(int pieceID)
+        {
+            return piecesNames[pieceID];
         }
 
 

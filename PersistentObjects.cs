@@ -12,7 +12,9 @@ namespace ChessPiecesDetection
 {
     class PersistentObjects
     {
+        //private readonly string DEFAULT_WEBSERVICE_URL = "http://cvdsvmserver.eastus.cloudapp.azure.com:5000/predict";
         private readonly string DEFAULT_WEBSERVICE_URL = "http://localhost:5000/predict";
+
         public Queue<PositionInstance> queuePositionInstances { get; set; }
         public WriteableBitmap originalLoadedImage { get; set; }
         public WriteableBitmap bitmapProcessingImage { get; set; }        

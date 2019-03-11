@@ -15,7 +15,7 @@
                 BorderThickness="1"
                 MinWidth="50"
                 MinHeight="400">
-            <ListBox Background="Transparent" SelectionMode="Single" HorizontalContentAlignment="Left" ScrollViewer.VerticalScrollMode="Auto">
+            <ListBox Background="Transparent" SelectionMode="Single" HorizontalContentAlignment="Left" ScrollViewer.VerticalScrollMode="Auto" SelectionChanged="ListBox_SelectionChanged">
                 <ListBoxItem Name="BlackPawn">
                     <local:BPawnPiece Width="20" Height="20" />
                 </ListBoxItem>

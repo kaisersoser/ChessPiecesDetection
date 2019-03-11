@@ -200,6 +200,8 @@ namespace ChessPiecesDetection
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        /// 
+        /* UNSUSED
         private void PieceType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (sender != null)
@@ -218,8 +220,7 @@ namespace ChessPiecesDetection
                 }
 
             }
-
-        }
+        } */
 
         /// <summary>
         /// Write the configured table into a database table
@@ -273,7 +274,15 @@ namespace ChessPiecesDetection
         /// <param name="e"></param>
         private void PredictButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            PredictBoardPieces();
+            try
+            {
+                PredictBoardPieces();
+            }
+            catch (Exception ex)
+            {
+                UpdateConsole(new StringBuilder().AppendFormat("The following error occured: {0} is a {1}={2}", ex.Message).ToString());
+            }
+            
         }
 
         /// <summary>
@@ -326,7 +335,8 @@ namespace ChessPiecesDetection
                 {
                     position.PieceID = predictedPiece.PredictedPieceID;
                     position.PredictedPieceID = predictedPiece.PredictedPieceID;
-                    position.PieceKeyID = PositionInstance.GetPieceKeyFromPieceID(position.PredictedPieceID);
+                    position.PieceKeyID = PositionInstance.GetPieceKeyFromPieceID(position.PieceID);
+                    position.PieceName = PositionInstance.GetPieceNameFromPieceID(position.PieceID);
                     position.IsPredicted = true;
                     UpdateConsole(new StringBuilder().AppendFormat("We Predicted the Piece at {0} is a {1}={2}", position.PositionID,
                                                                                                                 position.PredictedPieceID, 
@@ -338,5 +348,9 @@ namespace ChessPiecesDetection
             UpdateConsole("Board prediction finished...");
         }
 
+        private void SelectPieceTypeButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+
+        }
     }
 }
