@@ -11,7 +11,7 @@
     Background="Transparent">
 
     <Page.Resources>
-        <Style TargetType="TextBox" x:Key="MainTextBlockStyle">
+        <Style TargetType="TextBox" x:Key="MainTextBoxStyle">
             <Setter Property="FontFamily" Value="Arial" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="FontSize" Value="10" />
@@ -21,6 +21,27 @@
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Margin" Value="5,5,5,5" />
+        </Style>
+        <Style TargetType="TextBlock" x:Key="MainTextBlockStyle">
+            <Setter Property="FontFamily" Value="Arial" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="5,5,5,5" />
+        </Style>
+        <Style TargetType="Button" x:Key="MainButtonStyle">
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Width" Value="25" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Foreground" Value="WhiteSmoke" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Margin" Value="10,10,10,10" />
         </Style>
     </Page.Resources>
     <Grid>
@@ -37,7 +58,7 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="4*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid>
@@ -56,7 +77,8 @@
                                 <RowDefinition Height="30" />
                                 <RowDefinition Height="30" />
                                 <RowDefinition Height="30" />
-                                <RowDefinition Height="20" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="60" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="1">
@@ -64,12 +86,12 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="2*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBox Grid.Column="0" 
+                                <TextBlock Grid.Column="0" 
                                      Text="Row ID:" 
                                      Style="{StaticResource MainTextBlockStyle}"/>
-                                <TextBox Grid.Column="1" 
+                                <TextBlock Grid.Column="1" 
                                      Name="Row_ID_Details"
-                                     Width="150"
+                                     Width="150"                                     
                                      Style="{StaticResource MainTextBlockStyle}"/>
                             </Grid>
                             <Grid Grid.Row="2">
@@ -77,39 +99,63 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="2*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBox Grid.Column="0" 
+                                <TextBlock Grid.Column="0" 
                                      Text="Position ID:" 
                                      Style="{StaticResource MainTextBlockStyle}"/>
                                 <TextBox Grid.Column="1" 
                                      Name="Position_ID_Details"
                                      Width="150"
-                                     Style="{StaticResource MainTextBlockStyle}"/>
+                                     TextChanged="OnPositionInfoChanged"
+                                     Style="{StaticResource MainTextBoxStyle}"/>
                             </Grid>
                             <Grid Grid.Row="3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="2*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBox Grid.Column="0" 
+                                <TextBlock Grid.Column="0" 
                                      Text="Piece ID:" 
                                      Style="{StaticResource MainTextBlockStyle}"/>
                                 <TextBox Grid.Column="1" 
                                      Name="Piece_ID_Details"
                                      Width="150"
-                                     Style="{StaticResource MainTextBlockStyle}"/>
+                                     TextChanged="OnPositionInfoChanged"
+                                     Style="{StaticResource MainTextBoxStyle}"/>
                             </Grid>
                             <Grid Grid.Row="4">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="2*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBox Grid.Column="0" 
+                                <TextBlock Grid.Column="0" 
                                      Text="Piece Name:" 
                                      Style="{StaticResource MainTextBlockStyle}"/>
                                 <TextBox Grid.Column="1" 
                                      Name="Piece_Name_Details"
                                      Width="150"
-                                     Style="{StaticResource MainTextBlockStyle}"/>
+                                     TextChanged="OnPositionInfoChanged"
+                                     Style="{StaticResource MainTextBoxStyle}"/>
+                            </Grid>
+                            <Grid Grid.Row="6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Update:" 
+                                           Margin="10,10,10,10"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           Foreground="White"
+                                           FontWeight="Bold"
+                                           Style="{StaticResource MainTextBlockStyle}"/>
+                                <StackPanel Grid.Column="1" Orientation="Vertical">
+                                    <Button HorizontalAlignment="Left"
+                                            Style="{StaticResource MainButtonStyle}"
+                                            Name="SaveButton"
+                                            Click="SaveButton_Click"       
+                                            Content="&#59214;" Height="40" Width="40">
+                                    </Button>
+                                </StackPanel>
                             </Grid>
                         </Grid>
                     </StackPanel>

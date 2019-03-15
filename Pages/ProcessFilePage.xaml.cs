@@ -137,7 +137,7 @@ namespace ChessPiecesDetection
                     bPos.PieceID = (int)PositionInstance.PieceEnum.EPY;
 
                     modifiedBitmap = modifiedBitmap.Resize(64, 64, WriteableBitmapExtensions.Interpolation.Bilinear);
-                    modifiedBitmap = modifiedBitmap.Gray();
+                    //modifiedBitmap = modifiedBitmap.Gray();
                     bPos.PositionImageByte = await EncodeImage(modifiedBitmap);
                     bPos.PositionImage = modifiedBitmap;
                     bPos.PieceName = "Empty";

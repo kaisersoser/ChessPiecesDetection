@@ -96,6 +96,48 @@ namespace DataAccessLibrary
         }
 
         /// <summary>
+        /// Updates a row in the database
+        /// </summary>
+        /// <param name="_rowID"></param>
+        /// <param name="_positionID"></param>
+        /// <param name="_imageData"></param>
+        /// <param name="_pieceID"></param>
+        /// <param name="_pieceName"></param>
+        /// <returns></returns>
+        public static string UpdateData(int _rowID, string _positionID, byte[] _imageData, int _pieceID, string _pieceName)
+        {
+            string msg = null;
+            try
+            {
+                using (SqliteConnection db =
+                new SqliteConnection("Filename=" + _STR_DB_FILENAME))
+                {
+                    db.Open();
+
+                    SqliteCommand updateCommand = new SqliteCommand();
+                    updateCommand.Connection = db;
+
+                    // Use parameterized query to prevent SQL injection attacks
+                    updateCommand.CommandText = "UPDATE " + _STR_TABLE_NAME + " SET [PositionID] = @_PositionID, [ImageData]=@_ImageData, [PieceID]=@_PieceID, [PieceName]=@_PieceName WHERE [Primary_Key] = @_RowID;";
+                    updateCommand.Parameters.AddWithValue("@_RowID", _rowID);
+                    updateCommand.Parameters.AddWithValue("@_PositionID", _positionID);
+                    updateCommand.Parameters.AddWithValue("@_ImageData", _imageData);
+                    updateCommand.Parameters.AddWithValue("@_PieceID", _pieceID);
+                    updateCommand.Parameters.AddWithValue("@_PieceName", _pieceName);
+
+                    updateCommand.ExecuteReader();
+
+                    db.Close();
+                }
+                return msg = "OK";
+            }
+            catch (Exception ex)
+            {
+                return msg = "ERROR: " + ex.Message;
+            }                        
+        }
+
+        /// <summary>
         /// Returns a List<PiecesTableRowInstance> representing all rows in the table PiecesTable
         /// </summary>
         /// <returns></returns>

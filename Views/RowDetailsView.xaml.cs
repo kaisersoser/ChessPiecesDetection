@@ -1,6 +1,5 @@
 ﻿using DataAccessLibrary;
 using System.IO;
-using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
@@ -45,6 +44,27 @@ namespace ChessPiecesDetection
             WriteableBitmap image = await BitmapFactory.FromStream(buf);
 
             PieceImage.Source = image;
+        }
+
+        private void SaveButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            DataAccess.UpdateData(RowInstanceDetails.RowID, 
+                                                    RowInstanceDetails.PositionID, 
+                                                    RowInstanceDetails.PositionImageByte, 
+                                                    RowInstanceDetails.PieceID, 
+                                                    RowInstanceDetails.PieceName);
+        }
+
+        /// <summary>
+        /// Updates the row instance object
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnPositionInfoChanged(object sender, TextChangedEventArgs e)
+        {
+            RowInstanceDetails.PositionID = Position_ID_Details.Text;
+            RowInstanceDetails.PieceID = int.Parse(Piece_ID_Details.Text);
+            RowInstanceDetails.PieceName = Piece_Name_Details.Text;
         }
     }
 }

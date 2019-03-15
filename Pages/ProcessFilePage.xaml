@@ -69,6 +69,7 @@
                                Name="PredictedPieceKey"
                                HorizontalTextAlignment="Left" 
                                HorizontalAlignment="Left" 
+                               ToolTipService.ToolTip="{Binding PieceName,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                Text="{Binding PieceKeyID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                Style="{StaticResource BoardPieceCaptionStyle}"/>
                     <Button Grid.Column="2"

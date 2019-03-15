@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System;
+using Windows.UI.Xaml.Controls;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -22,6 +23,9 @@ namespace ChessPiecesDetection.Controls
 
             var selectedObject = ((ListBoxItem)((ListBox)sender).SelectedItem).Content;
 
+            // Is Empty Piece
+            if (((ListBoxItem)((ListBox)sender).SelectedItem).Name.Equals("Empty", StringComparison.CurrentCultureIgnoreCase))
+                position.PieceID = (int)PositionInstance.PieceEnum.EPY;
             // Is Black Pawn Selected
             if (selectedObject is BPawnPiece)
                 position.PieceID = (int)PositionInstance.PieceEnum.BPA;

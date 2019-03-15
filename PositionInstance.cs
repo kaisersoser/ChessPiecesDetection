@@ -74,8 +74,16 @@ namespace ChessPiecesDetection
         /// <summary>
         /// Name/Label of Piece (See PiecesNames for labels)
         /// </summary>
+        private string pieceName;
         [DataMember]
-        public string PieceName { get; set; }
+        public string PieceName {
+            get { return this.pieceName;  }
+            set
+            {
+                this.pieceName = value;
+                this.OnPropertyChanged();
+            }
+        }
         /// <summary>
         /// PredictedPieceID is the predicted type of piece returned by the web service
         /// </summary>
