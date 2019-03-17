@@ -6,13 +6,25 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    mc:Ignorable="d"
-    d:DesignHeight="640"
-    d:DesignWidth="640">
+    mc:Ignorable="d">
 
     <Grid>
-        <controls:ImageCropper x:Name="CroppedImage"
-                               CropShape="Rectangular"
-                               ThumbPlacement="All" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <controls:ImageCropper 
+                        Width="640"
+                        Height="640"
+                        x:Name="CroppedImage"
+                        CropShape="Rectangular"
+                        ThumbPlacement="All" />
+        </StackPanel>
     </Grid>
 </Page>

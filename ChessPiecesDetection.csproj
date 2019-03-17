@@ -158,11 +158,13 @@
     <Compile Include="Controls\WRookPiece.xaml.cs">
       <DependentUpon>WRookPiece.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ImageBrushFilters.cs" />
+    <Compile Include="ImageInstance.cs" />
+    <Compile Include="Views\EditImageView.xaml.cs">
+      <DependentUpon>EditImageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ConfigurationsPage.xaml.cs">
       <DependentUpon>ConfigurationsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ImageAutoCroppedView.xaml.cs">
-      <DependentUpon>ImageAutoCroppedView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ImageCroppingView.xaml.cs">
       <DependentUpon>ImageCroppingView.xaml</DependentUpon>
@@ -263,11 +265,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ConfigurationsPage.xaml">
+    <Page Include="Views\EditImageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ImageAutoCroppedView.xaml">
+    <Page Include="Pages\ConfigurationsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
