@@ -8,11 +8,22 @@
     mc:Ignorable="d">
 
     <Grid>
-        <StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="1" Grid.Column="1">
             <Image Name="ImageView"                 
                    Stretch="Fill"
+                   Width="640"
+                   Height="640"
                    VerticalAlignment="Top"   
-                   HorizontalAlignment="Center"/>
+                   HorizontalAlignment="Left"/>
         </StackPanel>
     </Grid>
 </Page>

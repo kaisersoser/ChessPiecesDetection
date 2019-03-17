@@ -28,34 +28,8 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
         </Style>
     </Page.Resources>
-    
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="VisualStateGroup">
-                <VisualState x:Name="Wide">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="640" />
-                        <AdaptiveTrigger MinWindowWidth="640" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="MainImageFrame.Width" Value="640" />
-                        <Setter Target="MainImageFrame.Height" Value="640" />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Narrow">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="0" />
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="MainImageFrame.Width" Value="320" />
-                        <Setter Target="MainImageFrame.Height" Value="320" />
-                    </VisualState.Setters>
-                </VisualState>
-
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -129,18 +103,31 @@
                                Foreground="Beige"                               
                                Style="{StaticResource MenuTextStyle}"/>
                 </StackPanel>
-
+                <StackPanel  Grid.Column="4" Orientation="Vertical" Margin="10,10,10,10">
+                    <Button HorizontalAlignment="Center"
+                            Grid.Column="0"
+                            Style="{StaticResource MainButtonStyle}"
+                            Name="EditImageButton"
+                            Foreground="Beige"
+                            Content="&#xE70F;" 
+                            Click="EditImageButton_Click">
+                    </Button>
+                    <TextBlock Text="Adjust" 
+                               FontSize="11" 
+                               Foreground="Beige"                               
+                               Style="{StaticResource MenuTextStyle}"/>
+                </StackPanel>
             </Grid>
         </StackPanel>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="125" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10" />
             </Grid.ColumnDefinitions>
-            <Frame Grid.Column="1" 
+            <Frame Grid.Column="1"
                    Name="MainImageFrame" 
-                   Margin="20,20,20,20"/>
+                   Margin="5,5,5,5"/>
         </Grid>
     </Grid>
 

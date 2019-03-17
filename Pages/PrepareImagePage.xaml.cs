@@ -182,5 +182,13 @@ namespace ChessPiecesDetection
                 MainImageFrame.Navigate(typeof(ImageLoadedView), _LocalPersistentObject, new SuppressNavigationTransitionInfo());
             }
         }
+
+        private void EditImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_LocalPersistentObject.bitmapProcessingImage == null)
+                return;
+
+            MainImageFrame.Navigate(typeof(EditImageView), _LocalPersistentObject);
+        }
     }
 }
