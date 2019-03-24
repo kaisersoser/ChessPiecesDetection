@@ -288,7 +288,7 @@ namespace ChessPiecesDetection
         /// <summary>
         /// Predicts the pieces on the board for each position
         /// </summary>
-        private async void PredictBoardPieces()
+        private async void PredictBoardPieces() 
         {
             UpdateConsole("Starting board prediction...");
             String url = _LocalPersistentObject.predictionURLString;
@@ -308,8 +308,8 @@ namespace ChessPiecesDetection
                 }
                 catch (Exception ex)
                 {
-                    UpdateConsole("An error occured: " + ex.Message);
-                    throw new Exception("Network related error:", ex);
+                    UpdateConsole("An network related error occured: " + ex.Message);
+                    return;
                 }
             }
             UpdateConsole("Response received! Processing...");

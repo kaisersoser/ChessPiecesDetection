@@ -7,6 +7,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessPiecesDetection", "Che
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{C75D602B-F947-4FD2-969D-47A03198A5EC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{01582DA4-39C5-4672-BA9D-12E5B8983021}"
+	ProjectSection(SolutionItems) = preProject
+		Readme.md = Readme.md
+	EndProjectSection
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "ChessPieceClassifier_Tensorflow", "..\ChessPieceClassifier_Tensorflow\ChessPieceClassifier_Tensorflow.pyproj", "{4A7B1484-D1F4-4016-BB8B-30F3E54BEB0A}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PredictChessPiecesService", "..\predictchesspieces\PredictChessPiecesService.pyproj", "{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +76,35 @@ Global
 		{C75D602B-F947-4FD2-969D-47A03198A5EC}.Release|x64.Build.0 = Release|Any CPU
 		{C75D602B-F947-4FD2-969D-47A03198A5EC}.Release|x86.ActiveCfg = Release|Any CPU
 		{C75D602B-F947-4FD2-969D-47A03198A5EC}.Release|x86.Build.0 = Release|Any CPU
+		{4A7B1484-D1F4-4016-BB8B-30F3E54BEB0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A7B1484-D1F4-4016-BB8B-30F3E54BEB0A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{4A7B1484-D1F4-4016-BB8B-30F3E54BEB0A}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{4A7B1484-D1F4-4016-BB8B-30F3E54BEB0A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4A7B1484-D1F4-4016-BB8B-30F3E54BEB0A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4A7B1484-D1F4-4016-BB8B-30F3E54BEB0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A7B1484-D1F4-4016-BB8B-30F3E54BEB0A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{4A7B1484-D1F4-4016-BB8B-30F3E54BEB0A}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{4A7B1484-D1F4-4016-BB8B-30F3E54BEB0A}.Release|x64.ActiveCfg = Release|Any CPU
+		{4A7B1484-D1F4-4016-BB8B-30F3E54BEB0A}.Release|x86.ActiveCfg = Release|Any CPU
+		{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}.Debug|ARM.Build.0 = Debug|Any CPU
+		{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}.Debug|x86.Build.0 = Debug|Any CPU
+		{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}.Release|ARM.ActiveCfg = Release|Any CPU
+		{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}.Release|ARM.Build.0 = Release|Any CPU
+		{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}.Release|ARM64.Build.0 = Release|Any CPU
+		{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}.Release|x64.ActiveCfg = Release|Any CPU
+		{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}.Release|x64.Build.0 = Release|Any CPU
+		{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}.Release|x86.ActiveCfg = Release|Any CPU
+		{02AFF7BA-466B-48E0-A753-4B7C4FED32F2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
